@@ -22,6 +22,10 @@
 {{- $codespaces:= env "CODESPACES" | not | not -}}
 sourceDir: "{{ .chezmoi.sourceDir }}"
 
+git:
+  autoCommit: true
+  autoPush: true
+
 data:
   name: "{{ $name }}"
   email: "{{ $email }}"
