@@ -92,8 +92,12 @@ for file in $HOME/.config/zsh/*.zsh; do
     source "$file"
 done
 
-. "$HOME/google-cloud-sdk/path.zsh.inc"
-. "$HOME/google-cloud-sdk/completion.zsh.inc"
+# Load gcloud completion, if available
+
+if [ -d "$HOME/google-cloud-sdk/ ]; then
+  . "$HOME/google-cloud-sdk/path.zsh.inc"
+  . "$HOME/google-cloud-sdk/completion.zsh.inc"
+fi
 
 export PATH="/usr/local/sbin:$PATH"
 
