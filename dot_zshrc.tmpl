@@ -45,12 +45,6 @@ plugins=(
 
 autoload -U compinit && compinit -i
 
-export NVM_AUTOLOAD=1
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
 export LANG=en_US.UTF-8
 
 if [[ command -v code ]]; then
@@ -61,25 +55,23 @@ else
   export EDITOR="vim"
 fi
 
-for file in $HOME/.config/zsh/*.zsh; do
-    source "$file"
-done
+export PATH="/usr/local/sbin:$PATH"
 
 # Load gcloud completion, if available
-
-if [ -d "$HOME/google-cloud-sdk/" ]; then
+if [ -d "$HOME/google-cloud-sdk" ]; then
   . "$HOME/google-cloud-sdk/path.zsh.inc"
   . "$HOME/google-cloud-sdk/completion.zsh.inc"
 fi
 
-export PATH="/usr/local/sbin:$PATH"
+export NVM_AUTOLOAD=1
+export NVM_LAZY=1
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+source $ZSH/oh-my-zsh.sh
