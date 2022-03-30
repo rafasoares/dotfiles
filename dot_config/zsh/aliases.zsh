@@ -1,2 +1,7 @@
 alias kcg="kcuc gapfish"
 alias kcgs="kcuc gapfish-staging"
+alias zrc="edit_settings ~/.zshrc"
+alias omz="edit_settings ~/.oh-my-zsh"
+alias pl10k="edit_settings ~/.p10k.zsh"
+alias bnfo="bundle info"
+alias b="bundle"
