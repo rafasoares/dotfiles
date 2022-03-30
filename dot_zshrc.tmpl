@@ -61,39 +61,6 @@ else
   export EDITOR="vim"
 fi
 
-function edit() { "${EDITOR} $@"; }
-function edit_settings() { edit "$@"; source "$@"; }
-
-#mkdir and cd
-function mkcd() { mkdir -p "$1" && cd "$_" || exit; }
-
-# FileSearch
-function f() { find . -iname "*$1*" "${@:2}"; }
-function r() { grep "$1" "${@:2}" -R .; }
-
-# Copies .sample/.example files, removing the .sample/.example extension
-function unsample() {
-  for file in **/?(.)*.@(sample|example); do
-    cp "$file" "${file/.(sample|example)/}"
-  done
-}
-
-devops() {
-  who=${1:-tba}
-  secrets=$(kubectl get secret --context gapfish dashboard-env -o json | jq -r '.data[".env"]' | base64 -d)
-  (
-    eval $secrets
-    curl -d "{ \"auth_token\": \"${DASHING_AUTH_TOKEN}\", \"text\": \"${who}\" }" \
-      https://auth_token:${BASIC_AUTH_TOKEN}@dashboard.k8s.gapfish.com/widgets/devops
-  )
-}
-
-# Custom aliases
-alias zrc="edit_settings ~/.zshrc"
-alias omz="edit_settings ~/.oh-my-zsh"
-alias pl10k="edit_settings ~/.p10k.zsh"
-alias bnfo="bundle info"
-
 for file in $HOME/.config/zsh/*.zsh; do
     source "$file"
 done
