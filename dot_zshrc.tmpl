@@ -47,9 +47,9 @@ autoload -U compinit && compinit -i
 
 export LANG=en_US.UTF-8
 
-if [[ command -v code ]]; then
+if [ command -v code ]; then
   export EDITOR="code -w"
-elif [[ command -v nvim ]]; then
+elif [ command -v nvim ]; then
   export EDITOR="nvim"
 else
   export EDITOR="vim"
