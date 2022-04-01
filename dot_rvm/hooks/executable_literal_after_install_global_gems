@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# Skip if no RVM path
+[ -z ${rvm_path} ] && exit 0
+target_path="${rvm_path}/gemsets/global.gems"
+
+gems="solargraph rubocop rubocop-performance rubocop-rails rubocop-rspec \
+      rubocop-rake"
+
+for gem in $gems; do
+  grep -q "${gem}" "${target_path}" && continue
+
+  echo "${gem}" >> "${target_path}"
+done
