@@ -1,0 +1,3 @@
+rvm_with_gems="solargraph rubocop rubocop-performance rubocop-rake rubocop-rails rubocop-rspec"
+rvm_install_on_use_flag=1
+rvm_gemset_create_on_use_flag=1
