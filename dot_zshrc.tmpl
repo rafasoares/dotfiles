@@ -25,7 +25,6 @@ plugins=(
   gcloud
   git
   kubectl
-  nvm
   rails
   yarn
   z
@@ -63,10 +62,6 @@ if [ -d "$HOME/google-cloud-sdk" ]; then
   . "$HOME/google-cloud-sdk/completion.zsh.inc"
 fi
 
-export NVM_AUTOLOAD=1
-export NVM_LAZY=1
-export NVM_SILENT=1
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
@@ -76,4 +71,3 @@ for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 source $ZSH/oh-my-zsh.sh
-eval "$(starship init zsh)"
