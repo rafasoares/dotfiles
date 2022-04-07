@@ -14,3 +14,20 @@ function unsample() {
     cp "$file" "${file/.(sample|example)/}"
   done
 }
+
+function gclb() {
+  # local branches=($(git branch -v | awk '/gone\]/ {print $1}'))
+  local branches=($(git branch -v | awk '/fix/ {print $1}'))
+
+  echo "The following branches will be permanently deleted:"
+  echo "\t${(j:\n\t:)branches}"
+
+  local confirm=$(read -q "confirm?Do you really want to delete them? (y/n) ")
+  echo
+
+  if ! $confirm; then
+    return 1
+  fi
+
+  echo "DELETED!"
+}
