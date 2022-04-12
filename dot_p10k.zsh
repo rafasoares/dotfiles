@@ -1100,6 +1100,13 @@ function p10k-on-pre-prompt() {
   # Custom icon.
   typeset -g POWERLEVEL9K_NVM_VISUAL_IDENTIFIER_EXPANSION=''
 
+  ##############[ fnm: Fast and simple Node.js version manager, built in Rust (https://github.com/Schniz/fnm) ]###############
+  # Fnm color.
+  typeset -g POWERLEVEL9K_FNM_FOREGROUND=46
+  typeset -g POWERLEVEL9K_FNM_BACKGROUND=22
+  # Custom icon.
+  typeset -g POWERLEVEL9K_FNM_VISUAL_IDENTIFIER_EXPANSION=''
+
   ############[ nodeenv: node.js environment (https://github.com/ekalinin/nodeenv) ]############
   # Nodeenv color.
   typeset -g POWERLEVEL9K_NODEENV_FOREGROUND=2
