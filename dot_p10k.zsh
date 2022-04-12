@@ -106,6 +106,7 @@ function p10k-on-pre-prompt() {
     anaconda                # conda environment (https://conda.io/)
     pyenv                   # python environment (https://github.com/pyenv/pyenv)
     goenv                   # go environment (https://github.com/syndbg/goenv)
+    fnm                     # Fast and simple Node.js version manager, built in Rust (https://github.com/Schniz/fnm)
     nodenv                  # node.js version from nodenv (https://github.com/nodenv/nodenv)
     nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
     nodeenv                 # node.js environment (https://github.com/ekalinin/nodeenv)
@@ -1728,13 +1729,6 @@ function p10k-on-pre-prompt() {
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_example() {
     p10k segment -b 1 -f 3 -i '⭐' -t 'hello, %n'
-  }
-
-  prompt_fnm () {
-    [[ -n $FNM_DIR ]] && _p9k_fnm_ls_current || return
-    local current=$_p9k__ret
-    ! _p9k_fnm_ls_default || [[ $_p9k__ret != $current ]] || return
-    _p9k_prompt_segment "$0" "magenta" "black" 'NODE_ICON' 0 '' "${${current#v}//\%/%%}"
   }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
