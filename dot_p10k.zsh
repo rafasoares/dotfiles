@@ -1730,6 +1730,13 @@ function p10k-on-pre-prompt() {
     p10k segment -b 1 -f 3 -i '⭐' -t 'hello, %n'
   }
 
+  prompt_fnm () {
+    [[ -n $FNM_DIR ]] && _p9k_fnm_ls_current || return
+    local current=$_p9k__ret
+    ! _p9k_fnm_ls_default || [[ $_p9k__ret != $current ]] || return
+    _p9k_prompt_segment "$0" "magenta" "black" 'NODE_ICON' 0 '' "${${current#v}//\%/%%}"
+  }
+
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
   # is to generate the prompt segment for display in instant prompt. See
   # https://github.com/romkatv/powerlevel10k/blob/master/README.md#instant-prompt.
