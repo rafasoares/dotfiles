@@ -61,7 +61,7 @@ if [ -d "$HOME/google-cloud-sdk" ]; then
 fi
 
 # Add FNM (node version manager) to PATH and activate it (if installed)
-if [ ! command -v fnm ]; then
+if [ ! "$(command -v fnm)" ]; then
   if [[ -d "$HOME/.fnm" ]]; then
     export PATH="$HOME/.fnm:$PATH"
   fi
