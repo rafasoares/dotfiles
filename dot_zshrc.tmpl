@@ -61,11 +61,13 @@ if [ -d "$HOME/google-cloud-sdk" ]; then
 fi
 
 # Add FNM (node version manager) to PATH and activate it (if installed)
-if [[ -d "$HOME/.fnm" ]]; then
-  export PATH="$HOME/.fnm:$PATH"
-
-  eval "$(fnm env --use-on-cd)"
+if [[ ! command -v fnm]]; then
+  if [[ -d "$HOME/.fnm" ]]; then
+    export PATH="$HOME/.fnm:$PATH"
+  fi
 fi
+
+eval "$(fnm env --use-on-cd)"
 
 for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
 
