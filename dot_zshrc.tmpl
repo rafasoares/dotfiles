@@ -63,14 +63,15 @@ if [ -d "$HOME/google-cloud-sdk" ]; then
   . "$HOME/google-cloud-sdk/completion.zsh.inc"
 fi
 
-# Add FNM (node version manager) to PATH and activate it (if installed)
+# Add FNM (node version manager) to PATH (if installed)
 if [ ! "$(command -v fnm)" ]; then
   if [[ -d "$HOME/.fnm" ]]; then
     export PATH="$HOME/.fnm:$PATH"
   fi
 fi
 
-eval "$(fnm env --use-on-cd)"
+# Make sure FNM is available and activate it
+[ "$(command -v fnm)" ] && eval "$(fnm env --use-on-cd)"
 
 for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
 
@@ -82,6 +83,9 @@ fpath+="${ZSH_CUSTOM:-"$ZSH/custom"}/plugins/zsh-completions/src"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# Load iTerm2 integration, if available
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 source $ZSH/oh-my-zsh.sh
 
