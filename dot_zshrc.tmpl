@@ -57,6 +57,9 @@ fi
 
 export PATH="/usr/local/sbin:$PATH"
 
+# Configure `gcloud` to use the new GKE auth plugin
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+
 # Load gcloud completion, if available
 if [ -d "$HOME/google-cloud-sdk" ]; then
   . "$HOME/google-cloud-sdk/path.zsh.inc"
