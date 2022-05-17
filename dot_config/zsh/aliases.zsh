@@ -9,5 +9,7 @@ alias b="bundle"
 # this is more useful :)
 alias gcs="git checkout staging"
 
-alias kcg="kcuc gapfish"
-alias kcgs="kcuc gapfish-staging"
+alias kc="kubectl config use-context"
+
+alias prod="gapfish"
+alias stg="gapfish-staging"
