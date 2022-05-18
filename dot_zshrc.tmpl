@@ -84,8 +84,18 @@ for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
 # Load zsh-completions directly (see https://github.com/zsh-users/zsh-completions/issues/603)
 fpath+="${ZSH_CUSTOM:-"$ZSH/custom"}/plugins/zsh-completions/src"
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# pnpm
+{{- if eq .chezmoi.os "darwin" }}
+export PNPM_HOME="$HOME/Library/pnpm"
+{{- else }}
+export PNPM_HOME="$HOME/.local/share/pnpm"
+{{ end -}}
+export PATH="$PNPM_HOME:$PATH"
+# pnpm end
+
+# tabtab source for packages
+# uninstall by removing these lines
+[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
 # Load iTerm2 integration, if available
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
@@ -94,3 +104,6 @@ source $ZSH/oh-my-zsh.sh
 
 # Fig post block. Keep at the bottom of this file.
 [[ -d "$HOME/.fig" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
