@@ -10,7 +10,7 @@
 
 # Path to your oh-my-zsh installation.
 export ZSH="{{ .chezmoi.homeDir }}/.oh-my-zsh"
-ZSH_THEME="powerlevel10k/powerlevel10k"
+[[ $TERM_PROGRAM != "WarpTerminal" ]] && ZSH_THEME="powerlevel10k/powerlevel10k"
 
 DISABLE_AUTO_UPDATE="true"
 DISABLE_UPDATE_PROMPT="true"
@@ -97,8 +97,11 @@ export PATH="$PNPM_HOME:$PATH"
 # uninstall by removing these lines
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
-# Load iTerm2 integration, if available
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+  # Load iTerm2 integration, if available
+  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+fi
 
 source $ZSH/oh-my-zsh.sh
 
@@ -107,7 +110,7 @@ source $ZSH/oh-my-zsh.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# eval "$(starship init zsh)"
+[[ $TERM_PROGRAM == "WarpTerminal" ]] && eval "$(starship init zsh)"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
