@@ -1,0 +1,132 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """\
+$directory \
+$git_branch \
+$git_commit \
+$git_state \
+$git_status \
+$fill \
+$ruby \
+$nodejs \
+$kubernetes \
+"""
+
+[aws]
+symbol = "  "
+
+[buf]
+symbol = " "
+
+[c]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[directory]
+read_only = " "
+home_symbol = " "
+style = "cyan"
+repo_root_style = "bold cyan"
+truncate_to_repo = false
+truncation_length = 0
+format = '[$read_only]($read_only_style)[$path]($style)'
+repo_root_format = '[$before_root_path]($style dimmed)[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)'
+
+[directory.substitutions]
+" /Developer/gapfish" = " "
+" /Developer" = " "
+
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[gcloud]
+symbol = "  "
+format = '[$symbol$project(\($region\))]($style)'
+
+[gcloud.project_aliases]
+api-project-855145936690 = 'gapfish'
+
+[git_branch]
+symbol = " "
+truncation_length = 20
+format = "[$symbol$branch(:$remote_branch)]($style)"
+style = 'purple'
+
+[git_status]
+conflicted = '[ $count ](bright-red)'
+ahead = '[ $count ](green)'
+behind = '[ $count ](172)'
+diverged = '[ ](red)'
+up_to_date = '[✓ ](green)'
+untracked = '[ $count ](purple)'
+stashed = '[ $count ](bright-green)'
+modified = '[ $count ](yellow)'
+staged = '[ $count ](blue)'
+renamed = '[ $count ](cyan)'
+deleted = '[ $count ](red)'
+format = '($all_status$ahead_behind)'
+
+[golang]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[kubernetes]
+disabled = false
+style = '#0000ff'
+format = '[$symbol$context( \($namespace\))]($style)'
+
+[memory_usage]
+symbol = " "
+
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+format = "[$symbol($version )]($style)"
+style = 'green'
+
+[package]
+symbol = " "
+
+[python]
+symbol = " "
+
+[spack]
+symbol = "🅢 "
+
+[rust]
+symbol = " "
+
+[ruby]
+symbol = " "
+format = '[$symbol($version )]($style)'
+style = 'red'
+
+[fill]
+symbol = " "
