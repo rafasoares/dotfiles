@@ -12,6 +12,8 @@ $nodejs \
 $kubernetes \
 """
 
+command_timeout=3000
+
 [aws]
 symbol = "  "
 
