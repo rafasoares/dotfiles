@@ -98,7 +98,7 @@ export PATH="$PNPM_HOME:$PATH"
 [[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
 
 
-if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
   # Load iTerm2 integration, if available
   test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 fi
@@ -106,11 +106,14 @@ fi
 source $ZSH/oh-my-zsh.sh
 
 # Fig post block. Keep at the bottom of this file.
-[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-[[ $TERM_PROGRAM == "WarpTerminal" ]] && eval "$(starship init zsh)"
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+if [[ $TERM_PROGRAM == "WarpTerminal" ]]; then
+  eval "$(starship init zsh)"
+else
+  [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && . "$HOME/.fig/shell/zshrc.post.zsh"
+fi
