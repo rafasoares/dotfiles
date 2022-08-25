@@ -15,6 +15,3 @@ alias kcprod="kubectl config use-context gapfish"
 alias kcstg="kubectl config use-context gapfish-staging"
 
 alias hf="hyperfine"
-
-# I keep forgetting that I migrated from alias-finder to acs
-alias alias-finder="acs"
