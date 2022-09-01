@@ -15,3 +15,5 @@ alias kcprod="kubectl config use-context gapfish"
 alias kcstg="kubectl config use-context gapfish-staging"
 
 alias hf="hyperfine"
+
+alias c="code ."
