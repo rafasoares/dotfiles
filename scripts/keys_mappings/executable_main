@@ -1,0 +1,70 @@
+#!/usr/bin/ruby
+
+require 'json'
+
+class UserMapping
+  HEX_OFFSET = 0x700000000
+
+  def initialize src, dst
+    @src = src
+    @dst = dst
+  end
+
+  attr_reader :src, :dst
+
+  def to_h
+    {
+      HIDKeyboardModifierMappingSrc: src_hex,
+      HIDKeyboardModifierMappingDst: dst_hex
+    }
+  end
+
+  def as_json
+    to_h.transform_values { |v| sprintf '%#x', v }
+  end
+
+  def to_json *args
+    to_h.to_json *args
+  end
+
+  def src_hex
+    src | HEX_OFFSET
+  end
+
+  def dst_hex
+    dst | HEX_OFFSET
+  end
+end
+
+class MappingCollection < Array
+  def << other
+    return super other if UserMapping === other
+    super UserMapping.new(*other)
+  end
+
+  def to_h
+    { UserKeyMapping: map(&:to_h) }
+  end
+
+  def to_json *args
+    to_h.to_json *args
+  end
+end
+
+def parse_args
+  ARGV.shift(2).map(&:hex) if ARGV.size == 2
+end
+
+mapping = MappingCollection.new
+
+output = case ARGV.shift
+         when 'set'
+           mapping << parse_args
+           `hidutil property --set '#{mapping.to_json}'`
+         when 'clear'
+           `hidutil property --set '#{mapping.to_json}'`
+         else
+           `hidutil property --get 'UserKeyMapping'`
+         end
+
+puts output
