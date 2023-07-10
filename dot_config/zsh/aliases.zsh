@@ -19,5 +19,5 @@ alias c="code ."
 
 alias chez="chezmoi"
 alias chedit="chezmoi edit"
-alias chfg="chezmoi edit-config"
+alias chcfg="chezmoi edit-config"
 alias chupdt="chezmoi update"
