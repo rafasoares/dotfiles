@@ -1,3 +1,4 @@
+
 alias zrc="edit_settings ~/.zshrc"
 alias omz="edit_settings ~/.oh-my-zsh"
 alias pl10k="edit_settings ~/.p10k.zsh"
@@ -17,3 +18,8 @@ alias kcstg="kubectl config use-context gapfish-staging"
 alias hf="hyperfine"
 
 alias c="code ."
+
+alias chez="chezmoi"
+alias chedit="chezmoi edit"
+alias chfg="chezmoi edit-config"
+alias chupdt="chezmoi update"
