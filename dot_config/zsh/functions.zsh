@@ -2,6 +2,7 @@ function edit() { "${EDITOR} $@"; }
 function edit_settings() {
   if [[ $(command -v chezmoi) && $(chezmoi cat "$@" 2>&1 /dev/null) ]]; then
     chezmoi edit "$@"
+    chezmoi apply 2>&1 /dev/null
   else
     edit "$@"
   fi
