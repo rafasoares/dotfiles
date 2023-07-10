@@ -12,8 +12,7 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="{{ .chezmoi.homeDir }}/.oh-my-zsh"
-{{/* [[ $TERM_PROGRAM != "WarpTerminal" ]] &&  */}}
-ZSH_THEME="powerlevel10k/powerlevel10k"
+[[ $TERM_PROGRAM != "WarpTerminal" ]] && ZSH_THEME="powerlevel10k/powerlevel10k"
 
 DISABLE_AUTO_UPDATE="true"
 DISABLE_UPDATE_PROMPT="true"
