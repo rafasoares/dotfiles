@@ -119,7 +119,7 @@ fi
 export PATH="$PATH:$HOME/.rvm/bin"
 
 if [[ $TERM_PROGRAM == "WarpTerminal" ]]; then
-  {{/* eval "$(starship init zsh)" */}}
+  eval "$(starship init zsh)"
 else
   # Fig post block. Keep at the bottom of this file.
   [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
