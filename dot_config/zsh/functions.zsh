@@ -1,11 +1,11 @@
 function edit() { "${EDITOR} $@"; }
 function edit_settings() {
-  local cmd="edit"
   if [[ $(command -v chezmoi) && $(chezmoi cat "$@" 2>&1 /dev/null) ]]; then
-    cmd="chezmoi edit";
+    chezmoi edit "$@"
+  else
+    edit "$@"
   fi
 
-  $cmd "$@"
   exec zsh --login
 }
 
