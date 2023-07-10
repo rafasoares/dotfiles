@@ -1,5 +1,11 @@
 function edit() { "${EDITOR} $@"; }
-function edit_settings() { edit "$@"; source "$@"; }
+function edit_settings() {
+  local cmd="edit"
+  if [[ -c "chezmoi" && chezmoi cat $@]]; then cmd="chezmoi edit"; fi
+
+  $cmd "$@"
+  exec zsh --login
+}
 
 #mkdir and cd
 function mkcd() { mkdir -p "$1" && cd "$_" || exit; }
