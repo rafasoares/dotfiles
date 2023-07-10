@@ -12,7 +12,8 @@ fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="{{ .chezmoi.homeDir }}/.oh-my-zsh"
-[[ $TERM_PROGRAM != "WarpTerminal" ]] && ZSH_THEME="powerlevel10k/powerlevel10k"
+{{/* [[ $TERM_PROGRAM != "WarpTerminal" ]] &&  */}}
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 DISABLE_AUTO_UPDATE="true"
 DISABLE_UPDATE_PROMPT="true"
@@ -119,7 +120,7 @@ fi
 export PATH="$PATH:$HOME/.rvm/bin"
 
 if [[ $TERM_PROGRAM == "WarpTerminal" ]]; then
-  eval "$(starship init zsh)"
+  {{/* eval "$(starship init zsh)" */}}
 else
   # Fig post block. Keep at the bottom of this file.
   [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
