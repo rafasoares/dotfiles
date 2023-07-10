@@ -10,7 +10,6 @@ alias b="bundle"
 alias gcs="git checkout staging"
 
 alias kc="kubectl config use-context"
-
 alias kcprod="kubectl config use-context gapfish"
 alias kcstg="kubectl config use-context gapfish-staging"
 
