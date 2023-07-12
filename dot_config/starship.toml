@@ -9,7 +9,6 @@ $git_status \
 $fill \
 $ruby \
 $nodejs \
-$kubernetes \
 """
 
 command_timeout=3000
@@ -30,7 +29,7 @@ symbol = " "
 symbol = " "
 
 [directory]
-read_only = " "
+read_only = " "
 home_symbol = " "
 style = "cyan"
 repo_root_style = "bold cyan"
@@ -126,7 +125,7 @@ symbol = "🅢 "
 symbol = " "
 
 [ruby]
-symbol = " "
+symbol = " "
 format = '[$symbol($version )]($style)'
 style = 'red'
 
