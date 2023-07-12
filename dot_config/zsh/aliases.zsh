@@ -18,6 +18,6 @@ alias hf="hyperfine"
 alias c="code ."
 
 alias chez="chezmoi"
-alias chedit="chezmoi edit"
-alias chcfg="chezmoi edit-config"
+alias chedit="chezmoi edit --apply"
+alias chcfg="chezmoi edit-config --apply"
 alias chupdt="chezmoi update"
