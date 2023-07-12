@@ -41,3 +41,25 @@ function gclb() {
     return 1
   fi
 }
+
+function add_dock_spacer() {
+  local size=""
+  if [[ $1 == "" || "$1" == "-s" || "$1" == "--small" ]]; then
+    size="small-"
+  elif [[ "$1" == "--large" || "$1" == "-l" ]]; then
+    size=""
+  elif [[ "$1" != "" ]]; then
+    echo << EOF
+Usage: add_dock_spacer [-s|--small|-l|--large]
+  -s|--small: Add a small spacer (default)
+  -l|--large: Add a large spacer
+EOF
+
+    return 1
+  fi
+
+  local tile="${size}spacer-tile"
+
+  defaults write com.apple.dock persistent-apps -array-add '{"tile-type" = "'${tile}'";}'
+  killall Dock
+}
