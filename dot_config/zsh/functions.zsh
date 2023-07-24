@@ -42,6 +42,22 @@ function gclb() {
   fi
 }
 
+function install-all-deps() {
+  if [[ -f Gemfile ]]; then
+    bundle install
+  fi
+
+  if [[ -f package.json ]]; then
+    if [[ -f yarn.lock ]]; then
+      yarn install
+    elif [[ -f pnpm-lock.yaml ]]; then
+      pnpm install
+    else
+      npm install
+    fi
+  fi
+}
+
 # Add a spacer to the dock
 function add-dock-spacer() {
   local size=""
