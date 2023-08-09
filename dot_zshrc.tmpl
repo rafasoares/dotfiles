@@ -91,7 +91,7 @@ fpath+="${ZSH_CUSTOM:-"$ZSH/custom"}/plugins/zsh-completions/src"
 export PNPM_HOME="/Users/rsoares/Library/pnpmexport"
 {{- else }}
 export PNPM_HOME="$HOME/.local/share/pnpmexport"
-{{ end -}}
+{{ end }}
 
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
