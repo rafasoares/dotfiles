@@ -88,12 +88,15 @@ fpath+="${ZSH_CUSTOM:-"$ZSH/custom"}/plugins/zsh-completions/src"
 
 # pnpm
 {{- if eq .chezmoi.os "darwin" }}
-export PNPM_HOME="$HOME/Library/pnpm"
+export PNPM_HOME="/Users/rsoares/Library/pnpmexport"
 {{- else }}
-export PNPM_HOME="$HOME/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpmexport"
 {{ end -}}
 
-export PATH="$PNPM_HOME:$PATH"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 # pnpm end
 
 # tabtab source for packages
