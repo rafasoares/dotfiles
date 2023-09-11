@@ -19,43 +19,6 @@
 [[ ! -o 'no_brace_expand' ]] || p10k_config_opts+=('no_brace_expand')
 'builtin' 'setopt' 'no_aliases' 'no_sh_glob' 'brace_expand'
 
-prompt_rvm() {
-  [[ $GEM_HOME == *rvm* && $ruby_string != $rvm_path/bin/ruby ]] || return
-
-  local v=${GEM_HOME:t}
-
-  (( _POWERLEVEL9K_RVM_SHOW_GEMSET )) || v=${v%%${rvm_gemset_separator:-@}*}
-  (( _POWERLEVEL9K_RVM_SHOW_PREFIX )) || v=${v#*-}
-  [[ -n $v ]] || return
-
-  _p9k_param $0 GEMSET_SEPARATOR
-  local sep=$_p9k__ret
-
-  echo "sep: $sep"
-
-  if [[ -v sep ]]; then
-    _p9k_color "$0_GEMSET_SEPARATOR" FOREGROUND
-    local sep_fg_color=$_p9k__ret
-
-    if [[ -v sep_fg_color ]]; then
-      _p9k_foreground $sep_fg_color
-      local sep_fg=$_p9k__ret
-
-      _p9k_color $0 FOREGROUND
-      local old_fg_color=$_p9k__ret
-
-      _p9k_foreground $old_fg_color
-      local old_fg=$_p9k__ret
-
-      sep="${sep_fg}${sep}${old_fg}"
-    fi
-
-    v=${v/${rvm_gemset_separator:-@}/${sep}}
-  fi
-
-  p10k segment -t $v -f red -b black -i 
-}
-
 function p10k-on-pre-prompt() {
   emulate -L zsh -o extended_glob -o magicequalsubst
   local dir=${(%):-%~}
