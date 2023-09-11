@@ -31,6 +31,8 @@ prompt_rvm() {
   _p9k_param $0 GEMSET_SEPARATOR
   local sep=$_p9k__ret
 
+  echo "sep: $sep"
+
   if [[ -v sep ]]; then
     _p9k_color "$0_GEMSET_SEPARATOR" FOREGROUND
     local sep_fg_color=$_p9k__ret
