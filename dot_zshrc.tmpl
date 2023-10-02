@@ -106,3 +106,7 @@ fi
 export PATH="$PATH:$HOME/.rvm/bin"
 
 eval "$(starship init zsh)"
+
+### SCLOUD - shell integration
+  command -v scloud >/dev/null 2>&1 && eval "$(scloud --shell zsh)"
+### SCLOUD
