@@ -65,8 +65,6 @@ fi
 # Make sure FNM is available and activate it
 [ "$(command -v fnm)" ] && eval "$(fnm env --use-on-cd)"
 
-for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
-
 # Load zsh-completions directly (see https://github.com/zsh-users/zsh-completions/issues/603)
 fpath+="${ZSH_CUSTOM:-"$ZSH/custom"}/plugins/zsh-completions/src"
 
@@ -94,6 +92,8 @@ if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
 fi
 
 source $ZSH/oh-my-zsh.sh
+
+for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
