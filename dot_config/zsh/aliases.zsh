@@ -13,19 +13,19 @@ fi
 if command -v eza &> /dev/null; then
   alias ls='eza --icons --group-directories-first --git --color=always'
 
-  alias l='ls -lFh'
-	alias lS='ls -1FSsh'
-	alias la='ls -lAFh'
-	alias lart='ls -1Fcart'
-	alias ldot='ls -ld .*'
-	alias ll='ls -l'
-	alias lr='ls -tRFh'
-	alias lrt='ls -1Fcrt'
-	alias ls='ls -G'
-	alias lsa='ls -lah'
-	alias lsn='ls -1'
-	alias lsr='ls -lARFh'
-	alias lt='ls -ltFh'
+  # From https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/common-aliases
+# ls, the common ones I use a lot shortened for rapid fire usage
+alias l='ls -lFh'     #size,show type,human readable
+alias la='ls -laFh'   #long list,show almost all,show type,human readable
+alias lr='ls -tRFh'   #sorted by date,recursive,show type,human readable
+alias lt='ls -lFh -stime'   #long list,sorted by date,show type,human readable
+alias ll='ls -l'      #long list
+alias ldot='ls -ld .*' #list dot files
+alias lS='ls -1Fh -ssize'   #single column,size,human readable
+alias lart='ls -1Fa -stime' #single column,all,recursive,sorted by date
+alias lrt='ls -1F'   #single column,recursive,show type
+alias lsr='ls -laRFh' #Recursive list of files and directories
+alias lsn='ls -1'     #A column contains name of files and directories
 fi
 
 # gcs is `git commit -S` by default, but I already sign all my commits
