@@ -5,6 +5,8 @@ alias pl10k="edit_settings ~/.p10k.zsh"
 alias bnfo="bundle info"
 alias b="bundle"
 
+alias cat='bat --style header --style rules --style snip --style changes --style header'
+
 # gcs is `git commit -S` by default, but I already sign all my commits
 # this is more useful :)
 alias gcs="git checkout staging"
