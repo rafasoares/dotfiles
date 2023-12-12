@@ -6,6 +6,7 @@ alias bnfo="bundle info"
 alias b="bundle"
 
 alias cat='bat --style header --style rules --style snip --style changes --style header'
+alias ls='exa --icons --group-directories-first --git --color=always'
 
 # gcs is `git commit -S` by default, but I already sign all my commits
 # this is more useful :)
