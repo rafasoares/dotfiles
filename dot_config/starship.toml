@@ -40,8 +40,8 @@ repo_root_format = '[$before_root_path]($style dimmed)[$repo_root]($repo_root_st
 fish_style_pwd_dir_length = 1
 
 [directory.substitutions]
-" /Developer/gapfish" = " "
 " /Developer" = " "
+"${VSCODE_WORKSPACE}" = "󰨞 "
 
 [docker_context]
 symbol = " "
