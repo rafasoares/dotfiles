@@ -4,6 +4,7 @@ alias pl10k="edit_settings ~/.p10k.zsh"
 
 alias bnfo="bundle info"
 alias b="bundle"
+alias bln="bundle list --name-only"
 
 alias rts="rails --tasks"
 
