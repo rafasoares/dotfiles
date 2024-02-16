@@ -7,6 +7,7 @@ alias b="bundle"
 alias bln="bundle list --name-only"
 
 alias rts="rails --tasks"
+alias rdsp="rails db:seed:replant"
 
 if command -v bat &> /dev/null; then
   alias cat='bat --style full'
