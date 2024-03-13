@@ -19,7 +19,7 @@ if command -v eza &> /dev/null; then
   # From https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/common-aliases
   # adapted to use eza
   alias l='ls -lhF'                         # size, show type, human readable
-  alias la='ls -ahF'                       # long list, show almost all, show type, human readable
+  alias la='ls -lahF'                        # long list, show almost all, show type, human readable
   alias lr='ls -RhF -stime'                 # sorted by date, recursive, show type, human readable
   alias lt='ls -lhF -stime'                 # long list, sorted by date, show type, human readable
   alias ll='ls -l'                          # long list
