@@ -86,7 +86,8 @@ if ! type "spacer" > /dev/null; then alias spacer="add-dock-spacer"; fi
 # re-merge all remote branches with a specific label (staging by default) into current branch
 function remerge() {
   local label="${1:-staging}"
-  local branches=($(gh pr list --label "${label}" --json headRefName --jq '.[].headRefName' | sort -u | xargs))
+  local query='.[] | select(.mergeable == "MERGEABLE") | .headRefName'
+  local branches=($(gh pr list --label "${label}" --json headRefName,mergeable --jq "${query}" | sort -u | xargs))
 
   for branch in $branches; do
     git merge --no-edit "origin/${branch}"
