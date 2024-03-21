@@ -11,6 +11,8 @@ alias rdsp="rails db:seed:replant"
 
 if command -v bat &> /dev/null; then
   alias cat='bat --style full'
+  alias ccat='bat --style changes'
+  alias catp='bat --style plain'
 fi
 
 if command -v eza &> /dev/null; then
@@ -20,7 +22,7 @@ if command -v eza &> /dev/null; then
   # adapted to use eza
   alias l='ls -lhF'                         # size, show type, human readable
   alias la='ls -lahF'                        # long list, show almost all, show type, human readable
-  alias lr='ls -RhF -stime'                 # sorted by date, recursive, show type, human readable
+  alias lr='ls -lRhF -stime'                 # sorted by date, recursive, show type, human readable
   alias lt='ls -lhF -stime'                 # long list, sorted by date, show type, human readable
   alias ll='ls -l'                          # long list
   alias ldot='ls -ld .*'                    # list dot files
