@@ -127,7 +127,7 @@ symbol = " "
 
 [ruby]
 symbol = " "
-format = '[$symbol($version )]($style)'
+format = '[($version )[$symbol]($style)($gemset)](gray)'
 style = 'red'
 
 [fill]
