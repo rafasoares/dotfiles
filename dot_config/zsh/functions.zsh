@@ -90,6 +90,7 @@ function remerge() {
   local branches=($(gh pr list --label "${label}" --json headRefName,mergeable --jq "${query}" | sort -u | xargs))
 
   for branch in $branches; do
+    echo "Merging ${branch}"
     git merge --no-edit "origin/${branch}"
   done
 }
