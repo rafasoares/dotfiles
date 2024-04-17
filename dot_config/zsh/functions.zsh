@@ -25,7 +25,7 @@ function unsample() {
 }
 
 function gclb() {
-  local branches=($(git branch -v | awk '/gone\]/ {print $1}'))
+  local branches=($(git branch -v | awk '/gone\]/ {print $2}'))
 
   echo "The following branches will be permanently deleted:"
   echo "\t${(j:\n\t:)branches}"
