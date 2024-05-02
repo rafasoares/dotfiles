@@ -45,5 +45,5 @@ alias c="code ."
 
 alias chez="chezmoi"
 alias chedit="chezmoi edit --apply"
-alias chcfg="chezmoi edit-config --apply"
+alias chcfg="chezmoi edit-config"
 alias chupdt="chezmoi update --apply"
