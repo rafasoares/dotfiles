@@ -94,16 +94,9 @@ source $ZSH/oh-my-zsh.sh
 
 for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# Add .NET Core SDK tools, if available
-if [ -d "$HOME/google-cloud-sdk" ]; then
-  export PATH="$PATH:$HOME/.dotnet/tools"
-fi
-
-eval "$(zoxide init zsh)"
-
-eval "$(starship init zsh)"
+[ "$(command -v fzf)" ] && eval "$(fzf --zsh)"
+[ "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
+[ "$(command -v starship)" ] && eval "$(starship init zsh)"
 
 ### SCLOUD - shell integration
   command -v scloud >/dev/null 2>&1 && eval "$(scloud --shell zsh)"
