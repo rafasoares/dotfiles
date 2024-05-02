@@ -1,7 +1,9 @@
 {{- $codespaces:= env "CODESPACES" | not | not -}}
+
 rvm_with_gems="solargraph"
 rvm_install_on_use_flag=1
 rvm_gemset_create_on_use_flag=1
+
 {{- if $codespaces }}
 rvm_silence_path_mismatch_check_flag=1
 {{- end }}
