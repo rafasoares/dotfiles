@@ -101,11 +101,13 @@ if [ -d "$HOME/google-cloud-sdk" ]; then
   export PATH="$PATH:$HOME/.dotnet/tools"
 fi
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+eval "$(zoxide init zsh)"
 
 eval "$(starship init zsh)"
 
 ### SCLOUD - shell integration
   command -v scloud >/dev/null 2>&1 && eval "$(scloud --shell zsh)"
 ### SCLOUD
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
