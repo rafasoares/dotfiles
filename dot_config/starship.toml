@@ -11,7 +11,7 @@ $ruby \
 $nodejs \
 """
 
-command_timeout=3000
+command_timeout = 3000
 
 [aws]
 symbol = "  "
