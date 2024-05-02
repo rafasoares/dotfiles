@@ -126,7 +126,7 @@ symbol = "🅢 "
 symbol = " "
 
 [ruby]
-symbol = " "
+symbol = " "
 format = '[$symbol]($style)[($version)([ @ ]($style)$gemset)](black)'
 style = 'red'
 
