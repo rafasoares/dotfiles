@@ -1,106 +1,18 @@
-# Path to your oh-my-zsh installation.
-export ZSH="{{ .chezmoi.homeDir }}/.oh-my-zsh"
-
-DISABLE_AUTO_UPDATE="true"
-DISABLE_UPDATE_PROMPT="true"
-
-unsetopt correct_all
-setopt correct
-unsetopt nomatch
-
-COMPLETION_WAITING_DOTS="true"
-
-plugins=(
-  aliases
-  bundler
-  common-aliases
-  docker
-  docker-compose
-  git
-  kubectl
-  pnpm
-  rails
-
-  {{- if eq .chezmoi.os "darwin" }}
-  brew
-  macos
-  xcode
-  {{- end }}
-
-  # Custom plugins (installed from Git into #ZSH_CUSTOM)
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  history-substring-search
-)
-
-export LANG=en_US.UTF-8
-
-if [ "$(command -v code)" ]; then
-  export EDITOR="code -w"
-elif [ "$(command -v nvim)" ]; then
-  export EDITOR="nvim"
-else
-  export EDITOR="vim"
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export PATH="/usr/local/sbin:$PATH"
+ZINIT_HOME={{ joinPath .chezmoi.homeDir ".local/share/zinit" }}
+source "${ZINIT_HOME}/zinit.zsh"
 
-# Configure `gcloud` to use the new GKE auth plugin
-export USE_GKE_GCLOUD_AUTH_PLUGIN=True
+HOMEBREW_NO_ENV_HINTS=1
 
-# Load gcloud completion, if available
-if [ -d "$HOME/google-cloud-sdk" ]; then
-  . "$HOME/google-cloud-sdk/path.zsh.inc"
-  . "$HOME/google-cloud-sdk/completion.zsh.inc"
-fi
+# Load powerlevel10k theme
+zinit ice depth"1" # git clone depth
+zinit light romkatv/powerlevel10k
 
-# Add FNM (node version manager) to PATH (if installed)
-if [ ! "$(command -v fnm)" ]; then
-  if [[ -d "$HOME/.fnm" ]]; then
-    export PATH="$HOME/.fnm:$PATH"
-  fi
-fi
-
-# Make sure FNM is available and activate it
-[ "$(command -v fnm)" ] && eval "$(fnm env --use-on-cd)"
-
-# Load zsh-completions directly (see https://github.com/zsh-users/zsh-completions/issues/603)
-fpath+="${ZSH_CUSTOM:-"$ZSH/custom"}/plugins/zsh-completions/src"
-
-# pnpm
-{{- if eq .chezmoi.os "darwin" }}
-export PNPM_HOME="/Users/rsoares/Library/pnpmexport"
-{{- else }}
-export PNPM_HOME="$HOME/.local/share/pnpmexport"
-{{ end }}
-
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# tabtab source for packages
-# uninstall by removing these lines
-[[ -f ~/.config/tabtab/zsh/__tabtab.zsh ]] && . ~/.config/tabtab/zsh/__tabtab.zsh || true
-
-
-if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
-  # Load iTerm2 integration, if available
-  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-fi
-
-source $ZSH/oh-my-zsh.sh
-
-for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
-
-[ "$(command -v fzf)" ] && eval "$(fzf --zsh)"
-[ "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
-[ "$(command -v starship)" ] && eval "$(starship init zsh)"
-
-### SCLOUD - shell integration
-  command -v scloud >/dev/null 2>&1 && eval "$(scloud --shell zsh)"
-### SCLOUD
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

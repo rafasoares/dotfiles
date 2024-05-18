@@ -1,0 +1,7 @@
+packages:
+  darwin:
+    taps:
+    brews:
+      - git
+    casks:
+      - google-chrome
