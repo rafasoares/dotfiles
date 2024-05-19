@@ -2,6 +2,24 @@ packages:
   darwin:
     taps:
     brews:
+      - bat
+      - coreutils
+      - docker-completion
+      - eza
+      - fnm
+      - fzf
+      - gh
       - git
+      - jq
+      - libpq
+      - mas
+      - neovim
+      - shellcheck
+      - tldr
+      - wget
+      - whalebrew
+      - zoxide
     casks:
+      - docker
+      - font-sauce-code-pro-nerd-font
       - google-chrome
