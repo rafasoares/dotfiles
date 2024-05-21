@@ -17,13 +17,6 @@ eval $(brew shellenv)
 ZINIT_HOME={{ joinPath .chezmoi.homeDir ".local/share/zinit" }}
 source "${ZINIT_HOME}/zinit.zsh"
 
-# Load zinit plugins
-zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-zinit light Aloxaf/fzf-tab
-zinit light ntnyq/omz-plugin-pnpm
-
 # Load oh-my-zsh plugins
 zi ice as'completion'; zi snippet OMZP::docker/completions/_docker
 
@@ -34,7 +27,12 @@ zinit snippet OMZP::docker-compose
 zinit snippet OMZP::git
 zinit snippet OMZP::rails
 
-unalias p
+# Load zinit plugins
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+zinit light ntnyq/omz-plugin-pnpm
 
 {{- if eq .chezmoi.os "darwin" }}
 zinit snippet OMZP::brew
