@@ -94,9 +94,3 @@ function remerge() {
     git merge --no-edit "origin/${branch}"
   done
 }
-
-function conflicting() {
-  local cmd=[ "$(command -v catp)" ] && catp || cat
-
-  gh pr list --label "staging" --json title,number,mergeable,url,author --jq '.[] | select(.mergeable != "MERGEABLE") | "[\(.title) (#\(.number))](\(.url)) - @\(.author.login)"' | cmd
-}
