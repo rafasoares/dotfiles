@@ -89,6 +89,7 @@ for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
 [ "$(command -v fzf)" ] && eval "$(fzf --zsh)"
 [ "$(command -v zoxide)" ] && eval "$(zoxide init zsh)"
 [ "$(command -v fnm)" ] && eval "$(fnm env --use-on-cd)"
+[ "$(command -v scloud)" ] && eval "$(scloud --shell zsh)"
 
 # Set the editor
 if [ "$(command -v code)" ]; then

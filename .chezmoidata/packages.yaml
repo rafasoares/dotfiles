@@ -10,6 +10,7 @@ packages:
       - fzf
       - gh
       - git
+      - htop
       - jq
       - libpq
       - mas
