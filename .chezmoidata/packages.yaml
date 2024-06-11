@@ -35,14 +35,13 @@ packages:
       - google-chrome
 
   apt:
-    packages:
-      - build-essential
-      - curl
-      - git
-      - htop
-      - jq
-      - neovim
-      - shellcheck
-      - tldr
-      - wget
-      - zoxide
+    - build-essential
+    - curl
+    - git
+    - htop
+    - jq
+    - neovim
+    - shellcheck
+    - tldr
+    - wget
+    - zoxide
