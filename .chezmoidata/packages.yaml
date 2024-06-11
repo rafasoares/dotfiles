@@ -1,5 +1,5 @@
 packages:
-  darwin:
+  homebrew:
     taps:
     brews:
       - bat
@@ -13,7 +13,6 @@ packages:
       - htop
       - jq
       - libpq
-      - mas
       - neovim
       - shellcheck
       - tldr
@@ -21,6 +20,12 @@ packages:
       - whalebrew
       - zoxide
     casks:
-      - docker
       - font-sauce-code-pro-nerd-font
+
+  darwin:
+    taps:
+    brews:
+      - mas
+    casks:
+      - docker
       - google-chrome

@@ -1,17 +1,23 @@
 [credential "https://github.com"]
-	helper = 
+	helper =
+	{{ if eq .chezmoi.os "darwin" }}
 	helper = !/opt/homebrew/bin/gh auth git-credential
+	{{ end }}
 [credential "https://gist.github.com"]
-	helper = 
+	helper =
+	{{ if eq .chezmoi.os "darwin" }}
 	helper = !/opt/homebrew/bin/gh auth git-credential
+	{{ end }}
 [user]
-	email = 893971+rafasoares@users.noreply.github.com
-	name = Rafael Soares
+	email = {{ .email | quote}}
+	name = {{ .name }}
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFWYeyy0b9cZtGcC0rAJN5H3kajsh9HIWUURW+JUBliJ
 [gpg]
 	format = ssh
 [gpg "ssh"]
+{{ if eq .chezmoi.os "darwin" }}
 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+{{ end }}
 [commit]
 	gpgsign = true
 [gitbutler]
