@@ -102,5 +102,12 @@ else
   export EDITOR="vim"
 fi
 
+{{ if eq .chezmoi.os "linux" }}
+# Configure Homebrew on Linux, if available
+if [ -d /home/linuxbrew/.linuxbrew ]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi
+{{ end }}
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ -f ~/.config/.pl10k.zsh ]] && source ~/.config/.pl10k.zsh

@@ -22,6 +22,10 @@ packages:
     casks:
       - font-sauce-code-pro-nerd-font
 
+  linux:
+    brews:
+      - gcc
+
   darwin:
     taps:
     brews:
@@ -29,3 +33,16 @@ packages:
     casks:
       - docker
       - google-chrome
+
+  apt:
+    packages:
+      - build-essential
+      - curl
+      - git
+      - htop
+      - jq
+      - neovim
+      - shellcheck
+      - tldr
+      - wget
+      - zoxide
