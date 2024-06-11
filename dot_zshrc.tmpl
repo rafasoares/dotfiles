@@ -39,8 +39,6 @@ zinit light ntnyq/omz-plugin-pnpm
 zinit snippet OMZP::brew
 {{- end }}
 
-{{ completion "zsh" }}
-
 # Load completions
 zicompinit; zicdreplay
 
@@ -86,6 +84,9 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # Load custom zsh configuration
 for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
+
+# Load ZSH completion for chezmoi
+{{ completion "zsh" }}
 
 # Load external utilities
 [ "$(command -v fzf)" ] && eval "$(fzf --zsh)"
