@@ -1,3 +1,5 @@
+#!/bin/bash
+
 {{ if eq .chezmoi.os "darwin" "linux" }}
 if [ ! "$(command -v brew)" ]; then
   echo "Homebrew ins't installed, trying to install.."
