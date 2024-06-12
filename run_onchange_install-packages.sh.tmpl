@@ -7,7 +7,7 @@ sudo apt install -y {{ join (.packages.linux.apt | quote) " " -}}
   {{- end }}
 {{- end -}}
 
-{{- define "homebrew-packages" -}}
+{{ define "homebrew-packages" -}}
 {{- $type := .type -}}
 {{- $packages := list -}}
 {{- range pluck .type .packages.all (get .packages .chezmoi.os) -}}{{- $packages = concat $packages . -}}{{- end -}}
@@ -16,7 +16,7 @@ sudo apt install -y {{ join (.packages.linux.apt | quote) " " -}}
 {{ $type }} {{ . | quote }}
 {{ end }}
 
-{{- end -}}
+{{- end }}
 
 {{- if eq .chezmoi.os "darwin" "linux" -}}
 brew bundle --no-lock --file=/dev/stdin <<EOF
