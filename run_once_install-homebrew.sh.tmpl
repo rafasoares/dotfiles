@@ -1,8 +1,13 @@
 #!/bin/bash
 
-{{ if eq .chezmoi.os "darwin" "linux" }}
+{{ if eq .chezmoi.os "darwin" "linux" -}}
 if [ ! "$(command -v brew)" ]; then
   echo "Homebrew ins't installed, trying to install.."
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
-{{ end }}
+
+{{- if eq .chezmoi.os "linux" -}}
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{- end -}}
+
+{{- end }}

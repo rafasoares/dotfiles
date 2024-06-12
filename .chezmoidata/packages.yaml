@@ -1,7 +1,6 @@
 packages:
-  homebrew:
-    taps:
-    brews:
+  all:
+    brew:
       - bat
       - coreutils
       - docker-completion
@@ -19,29 +18,18 @@ packages:
       - wget
       - whalebrew
       - zoxide
-    casks:
+    cask:
       - font-sauce-code-pro-nerd-font
 
   linux:
-    brews:
+    brew:
       - gcc
+    apt:
+      - build-essential
 
   darwin:
-    taps:
-    brews:
+    brew:
       - mas
-    casks:
+    cask:
       - docker
       - google-chrome
-
-  apt:
-    - build-essential
-    - curl
-    - git
-    - htop
-    - jq
-    - neovim
-    - shellcheck
-    - tldr
-    - wget
-    - zoxide

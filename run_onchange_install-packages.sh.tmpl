@@ -1,45 +1,29 @@
-{{ if eq .chezmoi.os "darwin" "linux" -}}
 #!/bin/bash
 
+
+{{- if eq .chezmoi.os "linux" -}}
+  {{ if eq .chezmoi.osRelease.idLike "debian" -}}
+sudo apt update -y
+sudo apt install -y {{ join (.packages.linux.apt | quote) " " -}}
+  {{- end }}
+{{- end }}
+
+{{- define "homebrew-packages" -}}
+{{- $type := .type -}}
+{{- $packages := list -}}
+{{- range pluck .type .packages.all (get .packages .chezmoi.os) -}}{{- $packages = concat $packages . -}}{{- end -}}
+
+{{ range $packages -}}
+{{ $type }} {{ . | quote }}
+{{ end }}
+
+{{- end -}}
+
+
+{{- if eq .chezmoi.os "darwin" "linux" -}}
 brew bundle --no-lock --file=/dev/stdin <<EOF
-{{ range .packages.homebrew.taps -}}
-tap {{ . | quote }}
-{{ end }}
-
-{{ if eq .chezmoi.os "darwin" -}}
-{{ range .packages.darwin.taps -}}
-tap {{ . | quote }}
-{{ end }}
-{{ end }}
-
-{{ range .packages.homebrew.brews -}}
-brew {{ . | quote }}
-{{ end -}}
-
-{{ if eq .chezmoi.os "darwin" -}}
-{{ range .packages.darwin.brews -}}
-brew {{ . | quote }}
-{{ end -}}
-{{ end }}
-
-{{ range .packages.homebrew.casks -}}
-cask {{ . | quote }}
-{{ end -}}
-
-{{ if eq .chezmoi.os "darwin" -}}
-{{ range .packages.darwin.casks -}}
-cask {{ . | quote }}
-{{ end -}}
-{{ end }}
-
+{{ template "homebrew-packages" set (deepCopy .) "type" "tap" }}
+{{ template "homebrew-packages" set (deepCopy .) "type" "brew" }}
+{{ template "homebrew-packages" set (deepCopy .) "type" "cask" }}
 EOF
 {{ end -}}
-
-{{ if eq .chezmoi.os "linux" -}}
-  {{ if eq .chezmoi.osRelease.idLike "debian" -}}
-sudo apt-get update -y
-
-sudo apt-get install -y {{ range .packages.apt -}} {{ . | quote }} {{ end }}
-
-  {{ end -}}
-{{ end }}
