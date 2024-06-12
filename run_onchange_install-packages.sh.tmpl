@@ -1,9 +1,9 @@
 #!{{ lookPath "bash" }}
 
-{{ if eq .chezmoi.os "linux" -}}
-  {{- if eq .chezmoi.osRelease.idLike "debian" -}}
+{{ if eq .chezmoi.os "darwin" -}}
+  {{- if true -}}
 sudo apt update -y
-sudo apt install -y {{ join (.packages.linux.apt | quote) " " -}}
+sudo apt install -y {{ range .packages.linux.apt }}{{ . | quote }} {{ end }}
   {{- end }}
 {{- end }}
 
