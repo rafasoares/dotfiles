@@ -40,7 +40,7 @@ zinit snippet OMZP::brew
 
 # Load completions
 remove_conflicting_git_completions
-fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
 zicompinit
 
 # Bind history search to up and down arrow keys
@@ -67,7 +67,16 @@ unsetopt nomatch
 
 # Configure completion
 COMPLETION_WAITING_DOTS="true"
-
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+if [ "$(command -v eza)" ]; then
+list='eza --icons --group-directories-first --git --color=always'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview "${list} $realpath"
+zstyle ':fzf-tab:complete:z:*' fzf-preview "${list} $realpath"
+fi
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # Load external utilities
 [ $(command -v chezmoi) ] && eval "$(chezmoi completion zsh)"
