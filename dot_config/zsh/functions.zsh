@@ -94,3 +94,11 @@ function remerge() {
     git merge --no-edit "origin/${branch}"
   done
 }
+
+remove_conflicting_git_completions() {
+    local git_completion_bash="$(brew --prefix)/share/zsh/site-functions/git-completion.bash"
+    local git_completion_zsh="$(brew --prefix)/share/zsh/site-functions/_git"
+
+    [ -e "$git_completion_bash" ] && rm "$git_completion_bash"
+    [ -e "$git_completion_zsh" ] && rm "$git_completion_zsh"
+}
