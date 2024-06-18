@@ -13,6 +13,9 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   eval "$(oh-my-posh init zsh --config "$(brew --prefix oh-my-posh)/themes/hotstick.minimal.omp.json")"
 fi
 
+# Load custom zsh configuration
+for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
+
 # Load oh-my-zsh plugins
 zi ice as'completion'; zi snippet OMZP::docker/completions/_docker
 
@@ -74,9 +77,6 @@ zstyle ':fzf-tab:complete:z:*' fzf-preview "${list} $realpath"
 fi
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
-
-# Load custom zsh configuration
-for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
 
 # Load external utilities
 [ $(command -v chezmoi) ] && eval "$(chezmoi completion zsh)"
