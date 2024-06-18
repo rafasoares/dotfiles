@@ -2,8 +2,9 @@
 
 {{ if eq .chezmoi.os "linux" -}}
   {{- if eq .chezmoi.osRelease.idLike "debian" -}}
-sudo apt update -y
-sudo apt install -y {{ range .packages.linux.apt }}{{ . | quote }} {{ end }}
+    {{- $cmd := .interactive | ternary "apt" "apt-get" -}}
+sudo {{ $cmd }} update -y
+sudo {{ $cmd }} install -y {{ range .packages.linux.apt }}{{ . | quote }} {{ end }}
   {{- end }}
 {{- end }}
 
@@ -19,9 +20,15 @@ sudo apt install -y {{ range .packages.linux.apt }}{{ . | quote }} {{ end }}
 {{- end }}
 
 {{ if eq .chezmoi.os "darwin" "linux" -}}
+test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ template "homebrew-packages" set (deepCopy .) "type" "tap" }}
 {{ template "homebrew-packages" set (deepCopy .) "type" "brew" }}
+
+{{ if not .codespaces -}}
 {{ template "homebrew-packages" set (deepCopy .) "type" "cask" }}
+{{- end }}
 EOF
 {{- end }}

@@ -1,4 +1,4 @@
-{{- /* Checks if running interactively, which is not the case for GitHub Codespaces */ -}}
+{{- /* Checks if running interactively */ -}}
 {{- $interactive := stdinIsATTY -}}
 
 {{- /* Initializes the name variable with a default value */ -}}
@@ -30,6 +30,7 @@ data:
   name: "{{ $name }}"
   email: "{{ $email }}"
   codespaces: {{ $codespaces }}
+  interactive: {{ $interactive }}
 
 diff:
   exclude:
