@@ -36,6 +36,8 @@ zinit snippet OMZP::brew
 {{- end }}
 
 # Load completions
+remove_conflicting_git_completions
+fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
 zicompinit
 
 # Bind history search to up and down arrow keys
