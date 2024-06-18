@@ -20,6 +20,9 @@ sudo {{ $cmd }} install -y {{ range .packages.linux.apt }}{{ . | quote }} {{ end
 {{- end }}
 
 {{ if eq .chezmoi.os "darwin" "linux" -}}
+test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ template "homebrew-packages" set (deepCopy .) "type" "tap" }}
 {{ template "homebrew-packages" set (deepCopy .) "type" "brew" }}
