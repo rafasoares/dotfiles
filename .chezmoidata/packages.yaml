@@ -18,6 +18,7 @@ packages:
       - wget
       - whalebrew
       - zoxide
+      - oh-my-posh
     cask:
       - font-sauce-code-pro-nerd-font
 
