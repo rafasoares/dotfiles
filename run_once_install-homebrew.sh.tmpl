@@ -7,8 +7,13 @@ if [ ! "$(command -v brew)" ]; then
 fi
 
 {{ if eq .chezmoi.os "linux" -}}
+echo "Adding Homebrew to PATH"
 test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+echo "Homebrew is installed at $(brew --prefix)"
+
+echo "Adding Homebrew initalization to .bashrc"
 echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
 {{- end }}
 
