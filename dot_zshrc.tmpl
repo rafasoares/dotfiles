@@ -1,18 +1,10 @@
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-{{ if eq .chezmoi.os "darwin" }}
-HOMEBREW_NO_ENV_HINTS=1
+{{ if eq .chezmoi.os "darwin" -}}
+export HOMEBREW_NO_ENV_HINTS=1
 eval $(brew shellenv)
-{{ end }}
-
+{{- end }}
 
 ZINIT_HOME={{ joinPath .chezmoi.homeDir ".local/share/zinit" }}
 source "${ZINIT_HOME}/zinit.zsh"
@@ -42,10 +34,7 @@ zinit snippet OMZP::brew
 # Load completions
 zicompinit; zicdreplay
 
-# Load powerlevel10k theme
-POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
-zinit ice depth"1" # git clone depth
-zinit light romkatv/powerlevel10k
+# Load theme
 
 # Bind history search to up and down arrow keys
 bindkey '^[[A' history-search-backward
@@ -108,6 +97,3 @@ if [ -d /home/linuxbrew/.linuxbrew ]; then
   eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 fi
 {{ end }}
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ -f ~/.config/.pl10k.zsh ]] && source ~/.config/.pl10k.zsh
