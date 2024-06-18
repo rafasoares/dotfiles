@@ -36,9 +36,7 @@ zinit snippet OMZP::brew
 {{- end }}
 
 # Load completions
-zicompinit; zicdreplay
-
-# Load theme
+zicompinit
 
 # Bind history search to up and down arrow keys
 bindkey '^[[A' history-search-backward
@@ -101,3 +99,6 @@ if [ -d /home/linuxbrew/.linuxbrew ]; then
   eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 fi
 {{ end }}
+
+# replay completions
+zicdreplay
