@@ -23,7 +23,7 @@ function p10k-on-pre-prompt() {
   emulate -L zsh -o extended_glob -o magicequalsubst
   local dir=${(%):-%~}
   dir=${dir/'~'/$HOME}
-  echo dir
+  echo $dir
   if [[ $dir = $VSCODE_WORKSPACE ]]; then
     p10k display '1/left/dir'=hide
   else
