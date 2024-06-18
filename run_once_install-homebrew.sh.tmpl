@@ -7,8 +7,9 @@ if [ ! "$(command -v brew)" ]; then
 fi
 
 {{ if eq .chezmoi.os "linux" -}}
-(echo; echo 'eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"') >> $HOME/.bashrc
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
+test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
 {{- end }}
 
 {{- end }}
