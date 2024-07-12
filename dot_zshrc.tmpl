@@ -13,9 +13,6 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   eval "$(oh-my-posh init zsh --config "$(brew --prefix oh-my-posh)/themes/hotstick.minimal.omp.json")"
 fi
 
-# Load custom zsh configuration
-for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
-
 # Load oh-my-zsh plugins
 zi ice as'completion'; zi snippet OMZP::docker/completions/_docker
 
@@ -34,9 +31,9 @@ zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 zinit light ntnyq/omz-plugin-pnpm
 
-{{- if eq .chezmoi.os "darwin" }}
-zinit snippet OMZP::brew
-{{- end }}
+if [ "$(command -v brew)" ]; then
+  zinit snippet OMZP::brew
+fi
 
 # Load completions
 remove_conflicting_git_completions
@@ -106,6 +103,9 @@ elif [ "$(command -v nvim)" ]; then
 else
   export EDITOR="vim"
 fi
+
+# Load custom zsh configuration
+for file in $HOME/.config/zsh/*.zsh; do source "$file"; done
 
 {{ if eq .chezmoi.os "linux" }}
 # Configure Homebrew on Linux, if available
