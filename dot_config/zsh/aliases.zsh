@@ -22,20 +22,20 @@ if command -v bat &> /dev/null; then
 fi
 
 if command -v eza &> /dev/null; then
-  alias ls='eza --icons --group-directories-first --git --color=always'
+  alias ls='eza --icons --group-directories-first --git --color=always -F auto'
 
   # From https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/common-aliases
   # adapted to use eza
-  alias l='ls -lhF'                         # size, show type, human readable
-  alias la='ls -lahF'                        # long list, show almost all, show type, human readable
-  alias lr='ls -lRhF -stime'                 # sorted by date, recursive, show type, human readable
-  alias lt='ls -lhF -stime'                 # long list, sorted by date, show type, human readable
+  alias l='ls -lh'                         # size, show type, human readable
+  alias la='ls -lah'                        # long list, show almost all, show type, human readable
+  alias lr='ls -lRh -stime'                 # sorted by date, recursive, show type, human readable
+  alias lt='ls -lh -stime'                 # long list, sorted by date, show type, human readable
   alias ll='ls -l'                          # long list
   alias ldot='ls -ld .*'                    # list dot files
-  alias lS='ls -lhrF -ssize --total-size'   # long list, sort by size, human readable
-  alias lart='ls -1aF -stime'               # 1 col, recursive, sorted by date, show almost all
-  alias lrt='ls -1F -stime'                 # 1 col, recursive, sorted by date
-  alias lsr='ls -RhF'                     # Recursive list of files and directories
+  alias lS='ls -lhr -ssize --total-size'   # long list, sort by size, human readable
+  alias lart='ls -1a -stime'               # 1 col, recursive, sorted by date, show almost all
+  alias lrt='ls -1 -stime'                 # 1 col, recursive, sorted by date
+  alias lsr='ls -Rh'                     # Recursive list of files and directories
   alias lsn='ls -1'                         # A column contains name of files and directories
 fi
 
