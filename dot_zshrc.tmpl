@@ -29,7 +29,7 @@ zinit snippet OMZP::rails
 
 # Load zinit plugins
 zinit light zdharma-continuum/fast-syntax-highlighting
-# zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
 zinit light ntnyq/omz-plugin-pnpm
@@ -80,13 +80,12 @@ zstyle ':completion:*' menu no
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 # Match lower case characters to upper case. Eg. `foo` will also match `Foo` and `FOO``
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]} '
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 
-# if [ "$(command -v eza)" ]; then
-# list='eza -1 --icons --group-directories-first --git --color=always $realpath'
-# zstyle ':fzf-tab:complete:cd:*' fzf-preview "${list}"
-# zstyle ':fzf-tab:complete:z:*' fzf-preview "${list}"
-# fi
+if [ "$(command -v eza)" ]; then
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons --group-directories-first --git --color=always $realpath'
+zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1 --icons --group-directories-first --git --color=always $realpath'
+fi
 
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
@@ -107,15 +106,15 @@ else
   export EDITOR="vim"
 fi
 
-# Load custom zsh aliases
-source $HOME/.config/zsh/aliases.zsh
-
 {{ if eq .chezmoi.os "linux" }}
 # Configure Homebrew on Linux, if available
 if [ -d /home/linuxbrew/.linuxbrew ]; then
   eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 fi
 {{ end }}
+
+# Load custom zsh aliases
+source $HOME/.config/zsh/aliases.zsh
 
 # replay completions
 zicdreplay
