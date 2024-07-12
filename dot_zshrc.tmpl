@@ -67,14 +67,27 @@ unsetopt nomatch
 
 # Configure completion
 COMPLETION_WAITING_DOTS="true"
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+# disable sort when completing `git checkout`
+zstyle ':completion:*:git-checkout:*' sort false
+# set descriptions format to enable group support
+# NOTE: don't use escape sequences here, fzf-tab will ignore them
+zstyle ':completion:*:descriptions' format '[%d]'
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':completion:*' menu no
+# preview directory's content with eza when completing cd
+# switch group using `<` and `>`
+zstyle ':fzf-tab:*' switch-group '<' '>'
+# Match lower case characters to upper case. Eg. `foo` will also match `Foo` and `FOO``
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]} '
+
 if [ "$(command -v eza)" ]; then
-list='eza --icons --group-directories-first --git --color=always'
-zstyle ':fzf-tab:complete:cd:*' fzf-preview "${list} $realpath"
-zstyle ':fzf-tab:complete:z:*' fzf-preview "${list} $realpath"
+list='eza -1 --icons --group-directories-first --git --color=always $realpath'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview "${list}"
+zstyle ':fzf-tab:complete:z:*' fzf-preview "${list}"
 fi
+
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
