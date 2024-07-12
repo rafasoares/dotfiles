@@ -22,7 +22,7 @@ if command -v bat &> /dev/null; then
 fi
 
 if command -v eza &> /dev/null; then
-  alias ls='eza --icons --group-directories-first --git --color=always -F auto'
+  alias ls='eza --icons --group-directories-first --git --color=always --classify=always'
 
   # From https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/common-aliases
   # adapted to use eza
