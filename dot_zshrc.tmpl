@@ -38,6 +38,9 @@ if [ "$(command -v brew)" ]; then
   zinit snippet OMZP::brew
 fi
 
+# Load custom zsh aliases
+source $HOME/.config/zsh/aliases.zsh
+
 # Load completions
 remove_conflicting_git_completions
 fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
@@ -112,9 +115,6 @@ if [ -d /home/linuxbrew/.linuxbrew ]; then
   eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 fi
 {{ end }}
-
-# Load custom zsh aliases
-source $HOME/.config/zsh/aliases.zsh
 
 # replay completions
 zicdreplay
