@@ -8,13 +8,14 @@ blocks:
     newline: true
     segments:
       - type: path
-        style: powerline
-        powerline_symbol: ''
+        style: diamond
+        leading_diamond: ""
+        trailing_diamond: ""
         foreground: white
         background: blue
         properties:
-          folder_separator_icon: '  '
-          home_icon: ' '
+          folder_separator_icon: "  "
+          home_icon: " "
           style: powerlevel
           cycle:
-           - blue
+            - blue
