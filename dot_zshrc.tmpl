@@ -82,11 +82,11 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 # Match lower case characters to upper case. Eg. `foo` will also match `Foo` and `FOO``
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]} '
 
-if [ "$(command -v eza)" ]; then
-list='eza -1 --icons --group-directories-first --git --color=always $realpath'
-zstyle ':fzf-tab:complete:cd:*' fzf-preview "${list}"
-zstyle ':fzf-tab:complete:z:*' fzf-preview "${list}"
-fi
+# if [ "$(command -v eza)" ]; then
+# list='eza -1 --icons --group-directories-first --git --color=always $realpath'
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview "${list}"
+# zstyle ':fzf-tab:complete:z:*' fzf-preview "${list}"
+# fi
 
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
