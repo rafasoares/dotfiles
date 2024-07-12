@@ -10,6 +10,11 @@ alias bln="bundle list --name-only"
 alias rts="rails --tasks"
 alias rdsp="rails db:seed:replant"
 
+alias bup="HOMEBREW_NO_ENV_HINTS=1
+brew update
+brew upgrade
+brew cleanup"
+
 if command -v bat &> /dev/null; then
   alias cat='bat --style full'
   alias ccat='bat --style changes'
