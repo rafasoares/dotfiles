@@ -23,6 +23,10 @@ sudo {{ $cmd }} install -y {{ range .packages.linux.apt }}{{ . | quote }} {{ end
 test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
+export HOMEBREW_NO_ENV_HINTS=1
+
+brew update
+
 brew bundle --no-lock --file=/dev/stdin <<EOF
 {{ template "homebrew-packages" set (deepCopy .) "type" "tap" }}
 {{ template "homebrew-packages" set (deepCopy .) "type" "brew" }}
@@ -32,3 +36,5 @@ brew bundle --no-lock --file=/dev/stdin <<EOF
 {{- end }}
 EOF
 {{- end }}
+
+brew cleanup

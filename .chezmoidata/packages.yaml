@@ -1,7 +1,6 @@
 packages:
   all:
     brew:
-      - 1password-cli
       - bat
       - coreutils
       - docker-completion
@@ -21,6 +20,7 @@ packages:
       - zoxide
       - oh-my-posh
     cask:
+      - 1password-cli
       - font-sauce-code-pro-nerd-font
 
   linux:
@@ -32,6 +32,6 @@ packages:
   darwin:
     brew:
       - mas
-      - orbstack
     cask:
+      - orbstack
       - google-chrome
