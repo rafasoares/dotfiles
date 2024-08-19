@@ -1,6 +1,7 @@
 packages:
   all:
     brew:
+      - 1password-cli
       - bat
       - coreutils
       - docker-completion
@@ -31,6 +32,6 @@ packages:
   darwin:
     brew:
       - mas
+      - orbstack
     cask:
-      - docker
       - google-chrome

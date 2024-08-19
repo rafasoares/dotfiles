@@ -1,16 +1,18 @@
+{{ define "gh-helper" -}}
+	helper =
+	{{ if eq .chezmoi.os "darwin" "linux" }}
+	helper = !gh auth git-credential
+	{{ end }}
+{{- end }}
+
 [credential "https://github.com"]
-	helper =
-	{{ if eq .chezmoi.os "darwin" }}
-	helper = !/opt/homebrew/bin/gh auth git-credential
-	{{ end }}
+	{{ template "gh-helper" . }}
 [credential "https://gist.github.com"]
-	helper =
-	{{ if eq .chezmoi.os "darwin" }}
-	helper = !/opt/homebrew/bin/gh auth git-credential
-	{{ end }}
+	{{ template "gh-helper" . }}
+
 [user]
 	email = {{ .email | quote}}
-	name = {{ .name }}
+	name = {{ .name | quote }}
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFWYeyy0b9cZtGcC0rAJN5H3kajsh9HIWUURW+JUBliJ
 [gpg]
 	format = ssh
@@ -24,3 +26,5 @@
 	signCommits = true
 [init]
 	defaultBranch = main
+[core]
+	excludesFile = {{ .chezmoi.homeDir }}/.gitignore_global
