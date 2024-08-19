@@ -95,7 +95,7 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # Load external utilities
 [ $(command -v chezmoi) ] && eval "$(chezmoi completion zsh)"
-[ "$(command -v fzf)" ] && eval "$(fzf --zsh)"
+[ "$(command -v fzf)" ] && source <(fzf --zsh)
 [ "$(command -v zoxide)" ] && eval "$(zoxide init --cmd cd zsh)"
 [ "$(command -v fnm)" ] && eval "$(fnm env --use-on-cd)"
 [ "$(command -v scloud)" ] && eval "$(scloud --shell zsh)"
