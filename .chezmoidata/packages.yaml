@@ -9,6 +9,7 @@ packages:
       - fzf
       - gh
       - git
+      - gpg
       - htop
       - jq
       - libpq
