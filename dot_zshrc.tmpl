@@ -28,10 +28,10 @@ zinit snippet OMZP::git
 zinit snippet OMZP::rails
 
 # Load zinit plugins
+zinit light Aloxaf/fzf-tab
 zinit light zdharma-continuum/fast-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
-zinit light Aloxaf/fzf-tab
 zinit light ntnyq/omz-plugin-pnpm
 
 if [ "$(command -v brew)" ]; then
@@ -85,10 +85,10 @@ zstyle ':fzf-tab:*' switch-group '<' '>'
 # Match lower case characters to upper case. Eg. `foo` will also match `Foo` and `FOO``
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 
-# if [ "$(command -v eza)" ]; then
-# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons --group-directories-first --git --color=always $realpath'
-# zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1 --icons --group-directories-first --git --color=always $realpath'
-# fi
+if [ "$(command -v eza)" ]; then
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons --group-directories-first --git --color=always $realpath'
+zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1 --icons --group-directories-first --git --color=always $realpath'
+fi
 
 zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
@@ -96,7 +96,7 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 # Load external utilities
 [ $(command -v chezmoi) ] && eval "$(chezmoi completion zsh)"
 [ "$(command -v fzf)" ] && source <(fzf --zsh)
-[ "$(command -v zoxide)" ] && eval "$(zoxide init --cmd cd zsh)"
+[ "$(command -v zoxide)" ] && eval "$(zoxide init --cmd z zsh)"
 [ "$(command -v fnm)" ] && eval "$(fnm env --use-on-cd)"
 
 # Set the editor
