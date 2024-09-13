@@ -79,12 +79,12 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':completion:*' menu no
-# preview directory's content with eza when completing cd
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 # Match lower case characters to upper case. Eg. `foo` will also match `Foo` and `FOO``
 zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
 
+# preview directory's content with eza when completing cd
 if [ "$(command -v eza)" ]; then
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons --group-directories-first --git --color=always $realpath'
 zstyle ':fzf-tab:complete:z:*' fzf-preview 'eza -1 --icons --group-directories-first --git --color=always $realpath'
