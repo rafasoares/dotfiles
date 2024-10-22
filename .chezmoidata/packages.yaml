@@ -2,6 +2,7 @@ packages:
   all:
     brew:
       - bat
+      - bat-extras
       - coreutils
       - docker-completion
       - eza
