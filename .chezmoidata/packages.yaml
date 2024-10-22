@@ -24,6 +24,7 @@ packages:
     cask:
       - 1password-cli
       - font-sauce-code-pro-nerd-font
+      - warp
 
   linux:
     brew:
@@ -35,5 +36,7 @@ packages:
     brew:
       - mas
     cask:
-      - orbstack
+      - arc
+      - firefox@developer-edition
       - google-chrome
+      - orbstack
