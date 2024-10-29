@@ -47,7 +47,7 @@ function gclb() {
 function weekly-updates() {
   local last_week=$(date -v-7d -v-monday "+%Y-%m-%d")
   local query="created:>=${last_week}"
-  local fields = "title,createdAt,url,state"
+  local fields="title,createdAt,url,state"
   local template='{{range .}}- {{ .title }} ( [#{{ .number }}]({{ .url }}) ){{ if ne .state "MERGED" }} (WIP) {{ end }} {{ "\n" }}{{ end }}'
 
   gh pr list --author @me -s open -s merged --search "${query}" --json $fields -t "${template}"
