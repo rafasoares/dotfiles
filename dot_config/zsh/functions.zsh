@@ -24,6 +24,7 @@ function unsample() {
   done
 }
 
+# Cleans up git branches that are gone from the remote
 function gclb() {
   local branches=($(git branch --format "%(refname:short) %(upstream:track)" | awk '/\[gone\]/ {print $1}'))
 
@@ -41,6 +42,17 @@ function gclb() {
     return 1
   fi
 }
+
+# Fetches all my PRs from last week and prints out a summary
+function weekly-updates() {
+  local last_week=$(date -v-7d -v-monday "+%Y-%m-%d")
+  local query="created:>=${last_week}"
+  local fields = "title,createdAt,url,state"
+  local template='{{range .}}- {{ .title }} ( [#{{ .number }}]({{ .url }}) ){{ if ne .state "MERGED" }} (WIP) {{ end }} {{ "\n" }}{{ end }}'
+
+  gh pr list --author @me -s open -s merged --search "${query}" --json $fields -t "${template}"
+}
+
 
 function install-all-deps() {
   if [[ -f Gemfile ]]; then
