@@ -1,3 +1,4 @@
+{{- define "install-packages" -}}
 #!{{ lookPath "bash" }}
 
 {{ if eq .chezmoi.os "linux" -}}
@@ -8,18 +9,7 @@ sudo {{ $cmd }} install -y {{ range .packages.linux.apt }}{{ . | quote }} {{ end
   {{- end }}
 {{- end }}
 
-{{ define "homebrew-packages" -}}
-{{- $type := .type -}}
-{{- $packages := list -}}
-{{- range pluck .type .packages.all (get .packages .chezmoi.os) -}}{{- $packages = concat $packages . -}}{{- end -}}
-
-{{ range $packages -}}
-{{ $type }} {{ . | quote }}
-{{ end }}
-
-{{- end }}
-
-{{ if eq .chezmoi.os "darwin" "linux" -}}
+{{- if eq .chezmoi.os "darwin" "linux" -}}
 test -d ~/.linuxbrew && eval "$(~/.linuxbrew/bin/brew shellenv)"
 test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
@@ -38,3 +28,21 @@ EOF
 {{- end }}
 
 brew cleanup
+{{- end -}}
+
+{{- define "homebrew-packages" -}}
+{{- $type := .type -}}
+{{- $packages := list -}}
+{{- range pluck .type .packages.all (get .packages .chezmoi.os) -}}{{- $packages = concat $packages . -}}{{- end -}}
+
+{{ range $packages -}}
+{{ $type }} {{ . | quote }}
+{{ end }}
+
+{{- end -}}
+
+{{- $codespaces:= env "CODESPACES" | not | not -}}
+
+{{- if not $codespaces -}}
+{{ template "install-packages" . }}
+{{- end }}

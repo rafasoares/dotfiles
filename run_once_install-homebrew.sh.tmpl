@@ -1,4 +1,5 @@
-#!/bin/bash
+{{- define "install-homebrew" -}}
+#!{{ lookPath "bash" }}
 
 {{ if eq .chezmoi.os "darwin" "linux" -}}
 if [ ! "$(command -v brew)" ]; then
@@ -17,4 +18,12 @@ echo "Adding Homebrew initalization to .bashrc"
 echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
 {{- end }}
 
+{{- end }}
+
+{{- end -}}
+
+{{- $codespaces:= env "CODESPACES" | not | not -}}
+
+{{ if not $codespaces -}}
+{{ template "install-homebrew" . }}
 {{- end }}
