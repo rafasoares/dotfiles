@@ -17,8 +17,7 @@ fi
 source $HOME/.config/zsh/functions.zsh
 
 zinit wait lucid for \
-  # Load oh-my-zsh plugins
-  svn OMZP::aliases \
+  sOMZP::aliases \
   OMZP::bundler \
   OMZP::common-aliases \
   OMZP::colored-man-pages \
@@ -27,9 +26,7 @@ zinit wait lucid for \
   OMZP::kubectl \
   OMZP::rails \
   OMZP::yarn \
-  as"completion" OMZP::docker/_docker
-
-  # Load zinit plugins
+  as"completion" OMZP::docker/_docker \
   atinit"zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \
   Aloxaf/fzf-tab \
   zsh-users/zsh-completions \
