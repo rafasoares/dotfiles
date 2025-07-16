@@ -17,7 +17,7 @@ fi
 source $HOME/.config/zsh/functions.zsh
 
 # Load oh-my-zsh plugins
-zi ice as'completion'; zi snippet OMZP::docker/completions/_docker
+# zi ice as'completion'; zi snippet OMZP::docker/completions/_docker
 
 zinit wait lucid for \
   OMZP::aliases \
@@ -28,7 +28,9 @@ zinit wait lucid for \
   OMZP::git \
   OMZP::kubectl \
   OMZP::rails \
-  OMZP::yarn
+  OMZP::yarn \
+  as"completion" \
+      OMZP::docker/_docker
 
 # Load zinit plugins
 zinit wait lucid for \
