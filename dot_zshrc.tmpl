@@ -16,11 +16,14 @@ fi
 # Load custom zsh functions
 source $HOME/.config/zsh/functions.zsh
 
-zinit snippet OMZP::common-aliases
+zinit snippet
+
 zinit wait lucid for \
-  sOMZP::aliases \
+  OMZP::aliases \
   OMZP::bundler \
   OMZP::colored-man-pages \
+  atload'source $HOME/.config/zsh/aliases.zsh' \
+    OMZP::common-aliases \
   OMZP::docker-compose \
   OMZP::git \
   OMZP::kubectl \
@@ -38,7 +41,7 @@ if [ "$(command -v brew)" ]; then
 fi
 
 # Load custom zsh aliases
-source $HOME/.config/zsh/aliases.zsh
+# source $HOME/.config/zsh/aliases.zsh
 
 # Load completions
 remove_conflicting_git_completions
