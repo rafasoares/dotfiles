@@ -16,21 +16,25 @@ fi
 # Load custom zsh functions
 source $HOME/.config/zsh/functions.zsh
 
-zinit snippet
+load_custom_aliases() {
+  source $HOME/.config/zsh/aliases.zsh
+}
 
 zinit wait lucid for \
   OMZP::aliases \
   OMZP::bundler \
   OMZP::colored-man-pages \
-  atload"source $HOME/.config/zsh/aliases.zsh" \
+  atload"load_custom_aliases" \
     OMZP::common-aliases \
   OMZP::docker-compose \
   OMZP::git \
   OMZP::kubectl \
   OMZP::rails \
   OMZP::yarn \
-  as"completion" OMZP::docker/completions/_docker \
-  atinit"zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \
+  as"completion" \
+    OMZP::docker/completions/_docker \
+  atinit"zicompinit; zicdreplay" \
+    zdharma-continuum/fast-syntax-highlighting \
   Aloxaf/fzf-tab \
   zsh-users/zsh-completions \
   zsh-users/zsh-autosuggestions \
