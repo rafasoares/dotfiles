@@ -14,14 +14,11 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
 fi
 
 # Load custom zsh functions
-source $HOME/.config/zsh/functions.zsh
-
-# Load oh-my-zsh plugins
-# zi ice as'completion'; zi snippet OMZP::docker/completions/_docker
+# source $HOME/.config/zsh/functions.zsh
 
 zinit wait lucid for \
-  svn \
-    OMZP::aliases \
+  # Load oh-my-zsh plugins
+  svn OMZP::aliases \
   OMZP::bundler \
   OMZP::common-aliases \
   OMZP::colored-man-pages \
@@ -30,13 +27,10 @@ zinit wait lucid for \
   OMZP::kubectl \
   OMZP::rails \
   OMZP::yarn \
-  as"completion" \
-      OMZP::docker/_docker
+  as"completion" OMZP::docker/_docker
 
-# Load zinit plugins
-zinit wait lucid for \
-  atinit"zicompinit; zicdreplay"  \
-    zdharma-continuum/fast-syntax-highlighting \
+  # Load zinit plugins
+  atinit"zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \
   Aloxaf/fzf-tab \
   zsh-users/zsh-completions \
   zsh-users/zsh-autosuggestions \
@@ -47,7 +41,7 @@ if [ "$(command -v brew)" ]; then
 fi
 
 # Load custom zsh aliases
-source $HOME/.config/zsh/aliases.zsh
+# source $HOME/.config/zsh/aliases.zsh
 
 # Load completions
 remove_conflicting_git_completions
