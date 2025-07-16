@@ -14,7 +14,7 @@ if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
 fi
 
 # Load custom zsh functions
-# source $HOME/.config/zsh/functions.zsh
+source $HOME/.config/zsh/functions.zsh
 
 zinit wait lucid for \
   # Load oh-my-zsh plugins
@@ -41,7 +41,7 @@ if [ "$(command -v brew)" ]; then
 fi
 
 # Load custom zsh aliases
-# source $HOME/.config/zsh/aliases.zsh
+source $HOME/.config/zsh/aliases.zsh
 
 # Load completions
 remove_conflicting_git_completions
