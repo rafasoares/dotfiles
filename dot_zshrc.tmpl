@@ -19,15 +19,16 @@ source $HOME/.config/zsh/functions.zsh
 # Load oh-my-zsh plugins
 zi ice as'completion'; zi snippet OMZP::docker/completions/_docker
 
-zinit snippet OMZP::aliases
-zinit snippet OMZP::bundler
-zinit snippet OMZP::common-aliases
-zinit snippet OMZP::colored-man-pages
-zinit snippet OMZP::docker-compose
-zinit snippet OMZP::git
-zinit snippet OMZP::kubectl
-zinit snippet OMZP::rails
-zinit snippet OMZP::yarn
+zinit wait lucid for \
+  OMZP::aliases \
+  OMZP::bundler \
+  OMZP::common-aliases \
+  OMZP::colored-man-pages \
+  OMZP::docker-compose \
+  OMZP::git \
+  OMZP::kubectl \
+  OMZP::rails \
+  OMZP::yarn
 
 # Load zinit plugins
 zinit light Aloxaf/fzf-tab
