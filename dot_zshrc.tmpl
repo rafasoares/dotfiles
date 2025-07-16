@@ -22,14 +22,14 @@ zinit wait lucid for \
   OMZP::aliases \
   OMZP::bundler \
   OMZP::colored-man-pages \
-  atload'source $HOME/.config/zsh/aliases.zsh' \
+  atload"source $HOME/.config/zsh/aliases.zsh" \
     OMZP::common-aliases \
   OMZP::docker-compose \
   OMZP::git \
   OMZP::kubectl \
   OMZP::rails \
   OMZP::yarn \
-  as"completion" OMZP::docker/_docker \
+  as"completion" OMZP::docker/completions/_docker \
   atinit"zicompinit; zicdreplay" zdharma-continuum/fast-syntax-highlighting \
   Aloxaf/fzf-tab \
   zsh-users/zsh-completions \
