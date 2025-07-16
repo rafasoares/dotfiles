@@ -31,11 +31,13 @@ zinit wait lucid for \
   OMZP::yarn
 
 # Load zinit plugins
-zinit light Aloxaf/fzf-tab
-zinit light zdharma-continuum/fast-syntax-highlighting
-zinit light zsh-users/zsh-completions
-zinit light zsh-users/zsh-autosuggestions
-zinit light ntnyq/omz-plugin-pnpm
+zinit wait lucid for \
+  atinit"zicompinit; zicdreplay"  \
+    zdharma-continuum/fast-syntax-highlighting \
+  Aloxaf/fzf-tab \
+  zsh-users/zsh-completions \
+  zsh-users/zsh-autosuggestions \
+  ntnyq/omz-plugin-pnpm
 
 if [ "$(command -v brew)" ]; then
   zinit snippet OMZP::brew
