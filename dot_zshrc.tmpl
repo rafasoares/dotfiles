@@ -131,6 +131,14 @@ zicdreplay
 export QLTY_INSTALL="$HOME/.qlty"
 export PATH="$QLTY_INSTALL/bin:$PATH"
 
+# Add ccache to the path
+if [ "$(command -v brew)" ]; then
+  ccache=$(brew --prefix ccache)
+  if [ -d "$ccache" ]; then
+    export PATH="$ccache/libexec:$PATH"
+  fi
+fi
+
 # Add cargo binaries to the path
 export PATH="$PATH:$HOME/.cargo/bin"
 
