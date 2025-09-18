@@ -9,6 +9,7 @@ alias bln="bundle list --name-only"
 
 alias rts="rails --tasks"
 alias rdsp="rails db:seed:replant"
+alias wds="bin/webpack-dev-server --watch"
 
 alias bup="HOMEBREW_NO_ENV_HINTS=1
 brew update
