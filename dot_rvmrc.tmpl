@@ -3,7 +3,9 @@
 rvm_install_on_use_flag=1
 rvm_gemset_create_on_use_flag=1
 
+{{ if eq .chezmoi.os "darwin" }}
 rvm_configure_env=(LDFLAGS="-Wl,-sectcreate,__DATA,__objc_fork_ok,/dev/null")
+{{ end }}
 
 {{- if $codespaces }}
 rvm_silence_path_mismatch_check_flag=1

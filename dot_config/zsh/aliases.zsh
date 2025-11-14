@@ -3,6 +3,8 @@ alias omz="edit_settings ~/.oh-my-zsh"
 alias aliases="edit_settings ~/.config/zsh/aliases.zsh"
 alias functions="edit_settings ~/.config/zsh/functions.zsh"
 
+alias ytc="yarn typecheck"
+
 alias bnfo="bundle info"
 alias b="bundle"
 alias bln="bundle list --name-only"
