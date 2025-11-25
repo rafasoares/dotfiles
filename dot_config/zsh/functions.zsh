@@ -103,7 +103,7 @@ function remerge() {
 
   for branch in $branches; do
     echo "Merging ${branch}"
-    git merge --no-edit "origin/${branch}"
+    git merge --no-edit --no-ff "origin/${branch}"
   done
 }
 
