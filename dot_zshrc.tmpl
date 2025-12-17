@@ -100,10 +100,11 @@ zstyle ':completion:*:*:docker:*' option-stacking yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 # Load external utilities
-[ $(command -v chezmoi) ] && eval "$(chezmoi completion zsh)"
+[ "$(command -v but)" ] && eval "$(but completions zsh)"
+[ "$(command -v chezmoi)" ] && eval "$(chezmoi completion zsh)"
 [ "$(command -v fzf)" ] && source <(fzf --zsh)
-[ "$(command -v zoxide)" ] && eval "$(zoxide init --cmd z zsh)"
 [ "$(command -v fnm)" ] && eval "$(fnm env --use-on-cd)"
+[ "$(command -v zoxide)" ] && eval "$(zoxide init --cmd z zsh)"
 
 # Set the editor
 if [ "$(command -v code)" ]; then
