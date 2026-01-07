@@ -132,6 +132,26 @@ When working on tasks, follow this integrated workflow:
 - When exploring codebases, use the Task tool with specialized agents for efficiency
 - Always read files before editing them
 
+## Dotfiles Management (chezmoi)
+
+The user's dotfiles are managed with [chezmoi](https://www.chezmoi.io/). This includes the OpenCode configuration files.
+
+**Source directory:** `~/.local/share/chezmoi/`
+
+**Key conventions:**
+- Files in `~/.config/` are stored as `dot_config/<path>` in the source directory
+- Always edit files in the chezmoi source directory, not the target location
+- After editing, run `chezmoi apply` to apply changes (chezmoi may auto-commit and push)
+
+**OpenCode config files:**
+- `~/.config/opencode/AGENTS.md` → `~/.local/share/chezmoi/dot_config/opencode/AGENTS.md`
+- `~/.config/opencode/config.json` → `~/.local/share/chezmoi/dot_config/opencode/config.json`
+
+**When updating these instructions or OpenCode config:**
+1. Edit the file in `~/.local/share/chezmoi/dot_config/opencode/`
+2. Run `chezmoi apply` to sync changes to the target location
+3. Chezmoi will auto-commit and push if configured
+
 ## Commit and PR Style Guide
 
 ### Commit Messages
