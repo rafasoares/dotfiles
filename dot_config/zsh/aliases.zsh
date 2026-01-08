@@ -46,7 +46,8 @@ alias gcs="git checkout staging"
 
 alias kc="kubectl config use-context"
 # Specific to my work environment at @chartmogul
-alias krc="kubectl exec -it deploy/platform -n platform -- entry-ssm bin/rails c"
+alias krc="kubectl exec -it deploy/platform -n platform -- bin/rails c"
+alias krdb='k8s_rails_dbconsole deploy/platform -n platform -p platform -l 2'
 
 alias hf="hyperfine"
 

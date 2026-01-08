@@ -114,3 +114,73 @@ remove_conflicting_git_completions() {
     [ -e "$git_completion_bash" ] && rm "$git_completion_bash"
     [ -e "$git_completion_zsh" ] && rm "$git_completion_zsh"
 }
+
+# Rails database console in Kubernetes pod
+function k8s_rails_dbconsole() {
+  local -a replica namespace prefix length help
+  zparseopts -D -E -- \
+    r=replica -replica=replica \
+    n:=namespace -namespace:=namespace \
+    p:=prefix -prefix:=prefix \
+    l:=length -length:=length \
+    h=help -help=help
+
+  if (( ${#help} )); then
+    cat <<EOF
+Usage: k8s_rails_dbconsole <resource> [db_name] [options]
+
+Opens a Rails database console in a Kubernetes pod.
+
+Arguments:
+  resource        Pod or resource to exec into (POD | TYPE/NAME)
+                  Examples: my-pod, deploy/my-app, svc/my-service
+  db_name         Database name or shard number (optional)
+
+Options:
+  -n, --namespace <ns>      Kubernetes namespace
+  -p, --prefix <prefix>     Database name prefix for numeric shards
+  -l, --length <len>        Zero-padding length for numeric shards
+  -r, --replica             Connect to replica database
+  -h, --help                Show this help message
+
+Examples:
+  k8s_rails_dbconsole deploy/my-app -n production -p shard -l 2 1
+    -> kubectl exec -it deploy/my-app -n production -- bin/rails db -p --db=shard01
+
+  k8s_rails_dbconsole deploy/my-app -p db -l 3 5 -r
+    -> kubectl exec -it deploy/my-app -- bin/rails db -p --db=db005_replica
+
+  k8s_rails_dbconsole deploy/my-app analytics
+    -> kubectl exec -it deploy/my-app -- bin/rails db -p --db=analytics
+EOF
+    return 0
+  fi
+
+  local resource="$1"
+  local db_name="${2:-}"
+
+  # Normalize db_name
+  if [[ -n "$db_name" ]]; then
+    if [[ "$db_name" =~ ^[0-9]+$ && ${#prefix} -gt 0 && ${#length} -gt 0 ]]; then
+      db_name="${prefix[-1]}$(printf "%0${length[-1]}d" "$db_name")"
+    fi
+
+    if (( ${#replica} )); then
+      db_name="${db_name}_replica"
+    fi
+  fi
+
+  # Build kubectl args
+  local -a kubectl_args=(exec -it "${resource}")
+  if (( ${#namespace} )); then
+    kubectl_args+=(-n "${namespace[-1]}")
+  fi
+
+  # Build rails command
+  local cmd="bin/rails db -p"
+  if [[ -n "$db_name" ]]; then
+    cmd="${cmd} --db=${db_name}"
+  fi
+
+  kubectl "${kubectl_args[@]}" -- ${=cmd}
+}
