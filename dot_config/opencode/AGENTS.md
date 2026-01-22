@@ -148,10 +148,14 @@ ci: add Ruby 3.4 to test matrix
 
 #### Starting a Task
 1. If an issue ID is provided, use `linear_get_issue` to understand the requirements
-2. Use `gitbutler_project_status` to check current state
-3. **Investigate the codebase** - read relevant files, understand the problem
-4. **THEN** create a new branch with `gitbutler_create_branch` using Linear's suggested branch name if available
-5. **THEN** update the issue status to "In Progress" with `linear_update_issue`
+2. **Check for linked Notion documents:**
+   - Look for Notion links in the Linear issue description or attachments
+   - If a PR already exists, check the PR description for Notion links
+   - Use `notion_notion-fetch` to retrieve and read any linked documents (specs, designs, requirements)
+3. Use `gitbutler_project_status` to check current state
+4. **Investigate the codebase** - read relevant files, understand the problem
+5. **THEN** create a new branch with `gitbutler_create_branch` using Linear's suggested branch name if available
+6. **THEN** update the issue status to "In Progress" with `linear_update_issue`
 
 #### During Development
 1. Make changes to the codebase
