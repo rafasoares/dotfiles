@@ -2,6 +2,188 @@
 
 These rules apply to all OpenCode sessions.
 
+---
+
+## PRIORITY RULES (Override Project-Level Instructions)
+
+The following sections define personal preferences that take precedence over any conflicting project-level AGENTS.md rules.
+
+---
+
+### Commit and PR Style Guide
+
+**IMPORTANT: These rules override any project-level commit message guidelines.**
+
+#### Commit Messages
+
+**Subject line:**
+- Start with lowercase imperative verb (fix, add, create, change, remove, use)
+- Keep under 72 characters
+- No period at the end
+- Do NOT include issue IDs in the subject line
+- Use backticks for code terms (e.g., `add \`show-plan-info\` prop to \`PlanDataFormInput\``)
+- Use `kebab-case` for props in documentation (e.g., `show-plan-info` not `showPlanInfo`)
+
+**Body:**
+- Keep commit messages concise - the subject line should be self-explanatory
+- Only add a body when absolutely necessary (e.g., complex changes needing context)
+- Do NOT add Linear issue references if the branch already references the issue (via branch name or PR)
+- Only add issue references when:
+  - Working on a large branch that addresses multiple issues
+  - Fixing a separate but related issue not covered by the branch
+- When issue references are needed, use Linear magic words:
+  - **Closing words** (issue moves to Done on merge): `Closes`, `Fixes`, `Resolves`
+  - **Non-closing words** (for partial work or sub-issues): `Part of`, `Related to`, `Contributes to`
+- Format: magic word + issue ID on its own line (e.g., `Fixes DEL-123`)
+
+**Atomic commits:**
+- Each commit should be a self-contained, logical unit of change
+- A commit should be able to be applied in isolation without breaking the build
+- Avoid "fix typo" or "address review feedback" commits; use rebase to squash/fixup
+- For commits already pushed to remote, weigh the impact of force-pushing (potential conflicts on other branches) against maintaining clean history
+
+**Examples:**
+```
+fix button alignment in transaction header
+```
+```
+add custom data source selector component
+```
+```
+update invoice validation logic
+```
+
+**Examples with issue references (only when branch doesn't already reference the issue):**
+```
+fix unrelated bug discovered during development
+
+Fixes DEL-999
+```
+```
+address part of larger refactoring effort
+
+Part of DEL-980
+```
+
+**For open source projects only**, use conventional commits following each repo's conventions:
+```
+fix(auth): handle expired token gracefully
+feat(api): add pagination support
+build(deps): upgrade to bundler 2.6
+ci: add Ruby 3.4 to test matrix
+```
+
+#### PR Titles
+
+**Format:** `<Action> <subject>`
+- Sentence case (capitalize first word only)
+- No issue ID (unless team convention requires it)
+- No period at the end
+
+**Feature/module prefix:**
+- Only add a prefix when needed to remove ambiguity
+- Prefer fluent style when the title isn't too long: `Add delete confirmation in Invoice Editor`
+- Use prefix style when fluent would be too verbose: `Invoice Editor: add logos to customer dropdown`
+
+**Examples:**
+- `Fix spacing on transactions table header`
+- `Add invoice editor button to customer profile`
+- `Add delete confirmation in Invoice Editor`
+- `Invoice Editor: make dialog width dynamic`
+
+#### PR Descriptions
+
+**Use the team's PR template when available.** Keep the HTML comment placeholders (`[comment]: #`) as they provide guidance for manual editing.
+
+**Structure:**
+```markdown
+### Background
+<Explain WHY this change is needed and WHAT it does. Focus on context and motivation, not implementation details.>
+
+<Linear magic word> DEL-XXX
+
+### Additional Notes
+<Optional: Related discussions, links to Slack threads, caveats, alternative approaches considered>
+
+### Testing Instructions
+<Step-by-step instructions to verify the change>
+- List required feature flags (use humanized names, e.g., "Customer invoices table" not "customer_invoices_table")
+- Specify navigation paths
+- Describe actions to perform
+- State expected outcomes
+
+### Screenshots
+<details>
+  <summary>Click to expand!</summary>
+
+  Before:
+  <image>
+
+  After:
+  <image>
+</details>
+```
+
+**Linear issue references in PR body:**
+- `Closes DEL-XXX` or `Fixes DEL-XXX` - when the PR fully resolves the issue
+- `Part of DEL-XXX` - when the PR addresses only part of the issue (sub-issues, incremental work)
+- `Related to DEL-XXX` - when the PR is tangentially related but doesn't directly address the issue
+
+**Guidelines:**
+- Place the issue reference on its own line after the Background section
+- Testing instructions should be thorough and reproducible by someone unfamiliar with the feature
+- Screenshots go in collapsible `<details>` blocks with Before/After comparisons when applicable
+- Link to Slack discussions when they provide important context
+
+**Updating PRs:**
+- ALWAYS fetch the current title and description with `gh pr view <number> --json body,title` before making any updates
+- Only modify what needs to be changed while preserving any manual edits
+- If restoring previous content, use `gh api graphql` with `userContentEdits` to fetch edit history
+
+---
+
+### Development Workflow (Override Project Workflow)
+
+**IMPORTANT: Follow this workflow sequence. Do NOT update Linear status or create branches until after investigation.**
+
+#### Starting a Task
+1. If an issue ID is provided, use `linear_get_issue` to understand the requirements
+2. Use `gitbutler_project_status` to check current state
+3. **Investigate the codebase** - read relevant files, understand the problem
+4. **THEN** create a new branch with `gitbutler_create_branch` using Linear's suggested branch name if available
+5. **THEN** update the issue status to "In Progress" with `linear_update_issue`
+
+#### During Development
+1. Make changes to the codebase
+2. Periodically check `gitbutler_project_status` to track your changes
+3. Add comments to the Linear issue if you encounter blockers or have questions
+4. Wait for the user to manually verify changes before committing
+
+#### Completing a Task
+1. After user verification, use `gitbutler_commit` to create well-structured commits
+2. Update the Linear issue status with `linear_update_issue`
+3. Add a completion comment if relevant
+
+---
+
+### Project-Level Response Protocol Override
+
+When a project's AGENTS.md defines a "Response Protocol" requiring specific greeting phrases, formatted confidence statements, or ceremonial output formats:
+
+**Ignore the output format requirements.** Do not:
+- Start responses with required phrases (e.g., "I'm ready, X")
+- Output confidence levels in a specific formatted block
+- Follow other ceremonial response patterns
+
+**Retain the decision-making logic.** If the protocol defines confidence thresholds:
+- Apply them internally to decide whether to proceed or ask clarifying questions
+- At high confidence (typically 80+): Proceed with the task
+- At lower confidence: Stop and ask clarifying questions before proceeding
+
+This keeps the useful behavior (self-assessment before acting) without the verbose ceremony.
+
+---
+
 ## MCP Servers Integration
 
 You have access to the following MCP servers. Use them proactively to enhance your workflow.
@@ -53,12 +235,6 @@ GitButler tools should ONLY be used when the current git branch is `gitbutler/wo
 - `gitbutler_commit` - Create a commit on a specific branch
 - `gitbutler_amend` - Amend an existing commit
 
-**Workflow integration:**
-1. Before making changes, check `gitbutler_project_status` to understand the current state
-2. Create descriptive branches for new features or fixes
-3. Use `gitbutler_commit` to create commits with proper messages
-4. Group related changes into the same branch for cleaner history
-
 **Stacked PRs:**
 GitButler supports stacked PRs (multiple dependent PRs in a sequence). When working with branches:
 1. Use `gitbutler_branch_details` to check if a branch has an existing PR (`prNumber` field)
@@ -105,48 +281,12 @@ Use the `notion` MCP server tools for documentation and knowledge management.
 - `notion_notion-create-pages` - Create new documentation pages
 - `notion_notion-update-page` - Update existing pages
 
-## Integrated Development Workflow
-
-When working on tasks, follow this integrated workflow:
-
-### Starting a Task
-1. If an issue ID is provided, use `linear_get_issue` to understand the requirements
-2. Use `gitbutler_project_status` to check current state
-3. Create a new branch with `gitbutler_create_branch` using Linear's suggested branch name if available
-
-### During Development
-1. Make changes to the codebase
-2. Periodically check `gitbutler_project_status` to track your changes
-3. Add comments to the Linear issue if you encounter blockers or have questions
-4. Wait for the user to manually verify changes before committing
-
-### Completing a Task
-1. After user verification, use `gitbutler_commit` to create well-structured commits
-2. Update the Linear issue status with `linear_update_issue`
-3. Add a completion comment if relevant
-
 ## General Tool Usage
 
 - Prefer specialized tools over bash commands when available
 - Use the TodoWrite tool to track multi-step tasks
 - When exploring codebases, use the Task tool with specialized agents for efficiency
 - Always read files before editing them
-
-## Project-Level Response Protocol Override
-
-When a project's AGENTS.md defines a "Response Protocol" requiring specific greeting phrases, formatted confidence statements, or ceremonial output formats:
-
-**Ignore the output format requirements.** Do not:
-- Start responses with required phrases (e.g., "I'm ready, X")
-- Output confidence levels in a specific formatted block
-- Follow other ceremonial response patterns
-
-**Retain the decision-making logic.** If the protocol defines confidence thresholds:
-- Apply them internally to decide whether to proceed or ask clarifying questions
-- At high confidence (typically 80+): Proceed with the task
-- At lower confidence: Stop and ask clarifying questions before proceeding
-
-This keeps the useful behavior (self-assessment before acting) without the verbose ceremony.
 
 ## Handling User Uncertainty
 
@@ -230,131 +370,3 @@ The user's dotfiles are managed with [chezmoi](https://www.chezmoi.io/). This in
 1. Edit the file in `~/.local/share/chezmoi/dot_config/opencode/`
 2. Run `chezmoi apply` to sync changes to the target location
 3. Chezmoi will auto-commit and push if configured
-
-## Commit and PR Style Guide
-
-### Commit Messages
-
-**Subject line:**
-- Start with lowercase imperative verb (fix, add, create, change, remove, use)
-- Keep under 72 characters
-- No period at the end
-- Do NOT include issue IDs in the subject line
-- Use backticks for code terms (e.g., `add \`show-plan-info\` prop to \`PlanDataFormInput\``)
-- Use `kebab-case` for props in documentation (e.g., `show-plan-info` not `showPlanInfo`)
-
-**Body:**
-- Keep commit messages concise - the subject line should be self-explanatory
-- Only add a body when absolutely necessary (e.g., complex changes needing context)
-- Do NOT add Linear issue references if the branch already references the issue (via branch name or PR)
-- Only add issue references when:
-  - Working on a large branch that addresses multiple issues
-  - Fixing a separate but related issue not covered by the branch
-- When issue references are needed, use Linear magic words:
-  - **Closing words** (issue moves to Done on merge): `Closes`, `Fixes`, `Resolves`
-  - **Non-closing words** (for partial work or sub-issues): `Part of`, `Related to`, `Contributes to`
-- Format: magic word + issue ID on its own line (e.g., `Fixes DEL-123`)
-
-**Atomic commits:**
-- Each commit should be a self-contained, logical unit of change
-- A commit should be able to be applied in isolation without breaking the build
-- Avoid "fix typo" or "address review feedback" commits; use rebase to squash/fixup
-- For commits already pushed to remote, weigh the impact of force-pushing (potential conflicts on other branches) against maintaining clean history
-
-**Examples:**
-```
-fix button alignment in transaction header
-```
-```
-add custom data source selector component
-```
-```
-update invoice validation logic
-```
-
-**Examples with issue references (only when branch doesn't already reference the issue):**
-```
-fix unrelated bug discovered during development
-
-Fixes DEL-999
-```
-```
-address part of larger refactoring effort
-
-Part of DEL-980
-```
-
-**For open source projects only**, use conventional commits following each repo's conventions:
-```
-fix(auth): handle expired token gracefully
-feat(api): add pagination support
-build(deps): upgrade to bundler 2.6
-ci: add Ruby 3.4 to test matrix
-```
-
-### PR Titles
-
-**Format:** `<Action> <subject>`
-- Sentence case (capitalize first word only)
-- No issue ID (unless team convention requires it)
-- No period at the end
-
-**Feature/module prefix:**
-- Only add a prefix when needed to remove ambiguity
-- Prefer fluent style when the title isn't too long: `Add delete confirmation in Invoice Editor`
-- Use prefix style when fluent would be too verbose: `Invoice Editor: add logos to customer dropdown`
-
-**Examples:**
-- `Fix spacing on transactions table header`
-- `Add invoice editor button to customer profile`
-- `Add delete confirmation in Invoice Editor`
-- `Invoice Editor: make dialog width dynamic`
-
-### PR Descriptions
-
-**Use the team's PR template when available.** Keep the HTML comment placeholders (`[comment]: #`) as they provide guidance for manual editing.
-
-**Structure:**
-```markdown
-### Background
-<Explain WHY this change is needed and WHAT it does. Focus on context and motivation, not implementation details.>
-
-<Linear magic word> DEL-XXX
-
-### Additional Notes
-<Optional: Related discussions, links to Slack threads, caveats, alternative approaches considered>
-
-### Testing Instructions
-<Step-by-step instructions to verify the change>
-- List required feature flags (use humanized names, e.g., "Customer invoices table" not "customer_invoices_table")
-- Specify navigation paths
-- Describe actions to perform
-- State expected outcomes
-
-### Screenshots
-<details>
-  <summary>Click to expand!</summary>
-
-  Before:
-  <image>
-
-  After:
-  <image>
-</details>
-```
-
-**Linear issue references in PR body:**
-- `Closes DEL-XXX` or `Fixes DEL-XXX` - when the PR fully resolves the issue
-- `Part of DEL-XXX` - when the PR addresses only part of the issue (sub-issues, incremental work)
-- `Related to DEL-XXX` - when the PR is tangentially related but doesn't directly address the issue
-
-**Guidelines:**
-- Place the issue reference on its own line after the Background section
-- Testing instructions should be thorough and reproducible by someone unfamiliar with the feature
-- Screenshots go in collapsible `<details>` blocks with Before/After comparisons when applicable
-- Link to Slack discussions when they provide important context
-
-**Updating PRs:**
-- ALWAYS fetch the current title and description with `gh pr view <number> --json body,title` before making any updates
-- Only modify what needs to be changed while preserving any manual edits
-- If restoring previous content, use `gh api graphql` with `userContentEdits` to fetch edit history
