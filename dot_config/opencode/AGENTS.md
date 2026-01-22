@@ -170,6 +170,36 @@ ci: add Ruby 3.4 to test matrix
 
 ---
 
+### Base Branch Updates Before Branching
+
+**IMPORTANT: Always ensure you're working from the latest code before creating a new branch.**
+
+#### Standard Git Workflow
+
+Before creating a new branch, determine the appropriate base:
+
+1. **New/separate issue:** Base off the default branch (usually `main`)
+   - Run `git fetch origin`
+   - Checkout and pull the default branch
+   - Create the new branch from there
+
+2. **Continuation/follow-up of current work:** Base off the current branch
+   - Ensure the current branch is up-to-date with its remote tracking branch
+   - Run `git fetch origin && git pull` (or rebase if preferred)
+   - Create the new branch from there
+
+#### GitButler Workflow
+
+Before creating a new branch, check if the workspace base needs updating:
+
+1. Run `but base check` to see if there are upstream changes
+2. **If changes are detected:** STOP and warn the user. Do NOT automatically update.
+   - GitButler workspace updates can be tricky and may require manual intervention
+   - Ask the user how they want to proceed before continuing
+3. **If no changes:** Proceed with `gitbutler_create_branch`
+
+---
+
 ### Project-Level Response Protocol Override
 
 When a project's AGENTS.md defines a "Response Protocol" requiring specific greeting phrases, formatted confidence statements, or ceremonial output formats:
