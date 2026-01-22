@@ -132,6 +132,85 @@ When working on tasks, follow this integrated workflow:
 - When exploring codebases, use the Task tool with specialized agents for efficiency
 - Always read files before editing them
 
+## Project-Level Response Protocol Override
+
+When a project's AGENTS.md defines a "Response Protocol" requiring specific greeting phrases, formatted confidence statements, or ceremonial output formats:
+
+**Ignore the output format requirements.** Do not:
+- Start responses with required phrases (e.g., "I'm ready, X")
+- Output confidence levels in a specific formatted block
+- Follow other ceremonial response patterns
+
+**Retain the decision-making logic.** If the protocol defines confidence thresholds:
+- Apply them internally to decide whether to proceed or ask clarifying questions
+- At high confidence (typically 80+): Proceed with the task
+- At lower confidence: Stop and ask clarifying questions before proceeding
+
+This keeps the useful behavior (self-assessment before acting) without the verbose ceremony.
+
+## Handling User Uncertainty
+
+When the user expresses uncertainty in prompts (e.g., "maybe ...", "I think ...", "perhaps ...", "not sure if ..."):
+
+1. **Investigate before agreeing** - Don't just validate the assumption; dig into code/docs to verify
+2. **Present alternatives** - If other approaches exist, lay them out with trade-offs
+3. **Offer counterpoints** - If the user's intuition might be off, respectfully push back with evidence
+4. **Ask clarifying questions** - When the uncertainty points to ambiguity that needs resolving
+
+Treat expressions of uncertainty as an invitation to be more rigorous, not as a signal to simply confirm.
+
+## Self-Awareness of Capabilities
+
+When asked "can you do X?" or when the user expresses uncertainty about capabilities, be honest about:
+
+1. **What I can reliably do** - Tasks within my toolset and knowledge
+2. **What I can attempt but may struggle with** - Complex multi-step tasks, edge cases, things requiring domain expertise I may lack
+3. **What I genuinely cannot do** - Limitations like no persistent memory across sessions, inability to run GUIs, no access to external services beyond available tools, etc.
+4. **Where I might make mistakes** - Areas prone to error (e.g., precise line numbers from memory, very recent APIs, niche library details)
+
+Avoid both overclaiming ("yes, I can definitely do that perfectly") and underclaiming ("I can't help with that" when a reasonable attempt is possible). If uncertain about my own ability, say so and suggest trying it to find out.
+
+## Test-Implementation Separation
+
+**CRITICAL:** When refactoring, change only ONE side (implementation OR tests), never both. The unchanged side serves as the behavioral contract—if tests fail after implementation refactoring, the refactoring broke behavior.
+
+**Trigger phrases requiring strict separation:**
+- "without changing/breaking existing behavior"
+- "refactor" (when targeting one side)
+
+**Exception:** When adding new behavior OR explicitly changing existing behavior, modifying both is acceptable—follow Red-Green-Refactor.
+
+### Red-Green-Refactor Pattern
+
+When adding or updating tests:
+
+1. **RED:** Write failing tests first. Run them—they MUST fail (proves they test new behavior)
+2. **GREEN:** Write minimum implementation to pass. Run tests—they MUST pass
+3. **REFACTOR:** Clean up implementation (tests unchanged, must pass), then clean up tests (implementation unchanged, must pass)
+
+## Destructive Git Operations
+
+**ALWAYS ask for confirmation before performing destructive git operations.** These operations rewrite history and can cause issues for collaborators or lose work.
+
+**Operations requiring confirmation:**
+- `git commit --amend`
+- `git push --force` / `git push --force-with-lease`
+- `git rebase` (interactive or non-interactive)
+- `git reset --hard` / `git reset --mixed` (when discarding commits)
+- `git branch -D` (force delete)
+- `git stash drop` / `git stash clear`
+- Any command that rewrites published history
+
+**Exceptions (no confirmation needed):**
+- `but absorb` - GitButler's absorb is designed for safe, automatic amending
+- `gitbutler_amend` - GitButler MCP tool handles this safely
+- Amending a commit that hasn't been pushed yet AND was just created in the current session
+- Small fixes (typos, formatting) to unpushed commits when the user has explicitly requested the original commit
+
+**How to ask:**
+Present the planned changes (e.g., show the diff or describe what will be amended) and ask:
+> "Should I amend the existing commit and force push, or would you prefer a separate commit?"
+
 ## Dotfiles Management (chezmoi)
 
 The user's dotfiles are managed with [chezmoi](https://www.chezmoi.io/). This includes the OpenCode configuration files.
@@ -161,9 +240,17 @@ The user's dotfiles are managed with [chezmoi](https://www.chezmoi.io/). This in
 - Keep under 72 characters
 - No period at the end
 - Do NOT include issue IDs in the subject line
+- Use backticks for code terms (e.g., `add \`show-plan-info\` prop to \`PlanDataFormInput\``)
+- Use `kebab-case` for props in documentation (e.g., `show-plan-info` not `showPlanInfo`)
 
-**Body (when needed):**
-- Use Linear magic words to link issues:
+**Body:**
+- Keep commit messages concise - the subject line should be self-explanatory
+- Only add a body when absolutely necessary (e.g., complex changes needing context)
+- Do NOT add Linear issue references if the branch already references the issue (via branch name or PR)
+- Only add issue references when:
+  - Working on a large branch that addresses multiple issues
+  - Fixing a separate but related issue not covered by the branch
+- When issue references are needed, use Linear magic words:
   - **Closing words** (issue moves to Done on merge): `Closes`, `Fixes`, `Resolves`
   - **Non-closing words** (for partial work or sub-issues): `Part of`, `Related to`, `Contributes to`
 - Format: magic word + issue ID on its own line (e.g., `Fixes DEL-123`)
@@ -180,11 +267,19 @@ fix button alignment in transaction header
 ```
 ```
 add custom data source selector component
-
-Closes DEL-976
 ```
 ```
 update invoice validation logic
+```
+
+**Examples with issue references (only when branch doesn't already reference the issue):**
+```
+fix unrelated bug discovered during development
+
+Fixes DEL-999
+```
+```
+address part of larger refactoring effort
 
 Part of DEL-980
 ```
