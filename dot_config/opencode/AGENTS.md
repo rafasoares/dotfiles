@@ -322,16 +322,24 @@ Use the `notion` MCP server tools for documentation and knowledge management.
 - When exploring codebases, use the Task tool with specialized agents for efficiency
 - Always read files before editing them
 
-## Handling User Uncertainty
+## Handling User Claims and Uncertainty
 
-When the user expresses uncertainty in prompts (e.g., "maybe ...", "I think ...", "perhaps ...", "not sure if ..."):
+**Never reflexively validate.** Do not say things like "You're right", "Good call", "Great point", or similar affirmations before actually verifying the claim. Investigate first, then confirm only if the claim holds up.
+
+When the user expresses uncertainty (e.g., "maybe ...", "I think ...", "perhaps ...", "not sure if ..."):
 
 1. **Investigate before agreeing** - Don't just validate the assumption; dig into code/docs to verify
 2. **Present alternatives** - If other approaches exist, lay them out with trade-offs
 3. **Offer counterpoints** - If the user's intuition might be off, respectfully push back with evidence
 4. **Ask clarifying questions** - When the uncertainty points to ambiguity that needs resolving
 
-Treat expressions of uncertainty as an invitation to be more rigorous, not as a signal to simply confirm.
+When the user states something confidently:
+
+1. **Still verify** - Confidence doesn't equal correctness; check before agreeing
+2. **Correct respectfully** - If they're wrong, say so directly with evidence
+3. **Confirm after verification** - Only agree once you've confirmed the claim is accurate
+
+Treat all claims as hypotheses to verify, not statements to validate.
 
 ## Self-Awareness of Capabilities
 
