@@ -146,25 +146,34 @@ ci: add Ruby 3.4 to test matrix
 
 **IMPORTANT: Follow this workflow sequence. Do NOT update Linear status or create branches until after investigation.**
 
+#### GitButler Detection (CRITICAL)
+
+**Before ANY git operation or starting work on an issue/task:**
+1. Run `git branch --show-current` to check the current branch
+2. **If on `gitbutler/workspace` or any `gitbutler/*` branch: STOP IMMEDIATELY**
+   - Warn the user: "You're on a GitButler-managed branch. I cannot perform git operations here. Please handle git workflow via the GitButler UI."
+   - Do NOT proceed with any git commands, branch creation, or commits
+   - You may still read/edit code files, but leave all version control to the user
+
 #### Starting a Task
 1. If an issue ID is provided, use `linear_get_issue` to understand the requirements
 2. **Check for linked Notion documents:**
    - Look for Notion links in the Linear issue description or attachments
    - If a PR already exists, check the PR description for Notion links
    - Use `notion_notion-fetch` to retrieve and read any linked documents (specs, designs, requirements)
-3. Use `gitbutler_project_status` to check current state
+3. **Check the current branch** (see GitButler Detection above)
 4. **Investigate the codebase** - read relevant files, understand the problem
-5. **THEN** create a new branch with `gitbutler_create_branch` using Linear's suggested branch name if available
+5. **THEN** create a new branch using standard git commands, using Linear's suggested branch name if available
 6. **THEN** update the issue status to "In Progress" with `linear_update_issue`
 
 #### During Development
 1. Make changes to the codebase
-2. Periodically check `gitbutler_project_status` to track your changes
+2. Periodically run `git status` and `git diff` to track your changes
 3. Add comments to the Linear issue if you encounter blockers or have questions
 4. Wait for the user to manually verify changes before committing
 
 #### Completing a Task
-1. After user verification, use `gitbutler_commit` to create well-structured commits
+1. After user verification, create well-structured commits with standard git commands
 2. Update the Linear issue status with `linear_update_issue`
 3. Add a completion comment if relevant
 
@@ -173,8 +182,6 @@ ci: add Ruby 3.4 to test matrix
 ### Base Branch Updates Before Branching
 
 **IMPORTANT: Always ensure you're working from the latest code before creating a new branch.**
-
-#### Standard Git Workflow
 
 Before creating a new branch, determine the appropriate base:
 
@@ -187,16 +194,6 @@ Before creating a new branch, determine the appropriate base:
    - Ensure the current branch is up-to-date with its remote tracking branch
    - Run `git fetch origin && git pull` (or rebase if preferred)
    - Create the new branch from there
-
-#### GitButler Workflow
-
-Before creating a new branch, check if the workspace base needs updating:
-
-1. Run `but base check` to see if there are upstream changes
-2. **If changes are detected:** STOP and warn the user. Do NOT automatically update.
-   - GitButler workspace updates can be tricky and may require manual intervention
-   - Ask the user how they want to proceed before continuing
-3. **If no changes:** Proceed with `gitbutler_create_branch`
 
 ---
 
@@ -246,59 +243,18 @@ Use the `linear` MCP server tools to integrate issue tracking into your developm
 4. Use Linear magic words in commit body to link issues (e.g., `Fixes PLT-123` or `Part of PLT-123`)
 5. Update issue status when work is complete (e.g., "In Review" when PR is ready)
 
-### GitButler (Version Control)
+### GitButler (HANDS OFF)
 
-Use the `gitbutler` MCP server tools for enhanced Git workflow management.
+**DO NOT use GitButler tools or CLI commands programmatically.**
 
-**IMPORTANT: Branch Check**
-GitButler tools should ONLY be used when the current git branch is `gitbutler/workspace`. Before using any GitButler tools, check the current branch with `git branch --show-current`.
+The user manages GitButler workflow manually via the UI. Before any git operation:
 
-- If on `gitbutler/workspace`: Use GitButler tools for all git operations
-- If on `main`, `production`, `alpha-*`, `beta`, or any other branch: Use standard git commands and `gh` CLI for GitHub operations instead
-
-**When to use GitButler (only on `gitbutler/workspace` branch):**
-- Before starting work: Check project status to understand current branches and changes
-- When organizing changes: Use branches to group related changes
-- When committing: Create focused commits with clear messages
-- When reviewing changes: Get branch details to understand the scope of work
-
-**Available operations:**
-- `gitbutler_project_status` - Get current project state including branches and uncommitted changes
-- `gitbutler_branch_details` - Get detailed information about a specific branch
-- `gitbutler_create_branch` - Create a new branch with description
-- `gitbutler_commit` - Create a commit on a specific branch
-- `gitbutler_amend` - Amend an existing commit
-
-**Stacked PRs:**
-GitButler supports stacked PRs (multiple dependent PRs in a sequence). When working with branches:
-1. Use `gitbutler_branch_details` to check if a branch has an existing PR (`prNumber` field)
-2. If a branch already has a PR, commits to that branch will be part of the existing stack
-3. When the user asks to add changes to an existing stack, commit to the appropriate branch in the stack
-4. The PR description will automatically show the stack relationship (e.g., "part 2 of 4 in a stack")
-
-**GitButler CLI Commands (via Bash):**
-When the MCP tools are insufficient, use the GitButler CLI (`but`) directly:
-
-- `but absorb` - Automatically amend changes into the appropriate existing commits where they belong. Use this for small fixes or touch-ups to previous commits instead of creating new commits. GitButler analyzes which commit each change should belong to based on file dependencies.
-  ```bash
-  but absorb              # Absorb all uncommitted changes into appropriate commits
-  but absorb <file-id>    # Absorb a specific file's changes
-  but absorb <branch-id>  # Absorb all changes assigned to a specific branch
-  ```
-
-- `but rub <source> <target>` - Combine two entities together. Very powerful for reorganizing commits:
-  - `but rub <file-id> <commit-id>` - Amend a specific file change into a commit
-  - `but rub <commit-id> <commit-id>` - Squash two commits together
-  - `but rub <commit-id> 00` - Uncommit (move changes back to unassigned)
-  - `but rub <commit-id> <branch-id>` - Move a commit to another branch
-  - `but rub <file-id> 00` - Unassign a file from its current branch
-
-- `but status` - Show current workspace state (similar to `gitbutler_project_status`)
-- `but status -f` or `but status --files` - Show status with file IDs for use with rub/absorb
-
-**When to use absorb vs new commits:**
-- Use `but absorb` when making small fixes, typo corrections, or touch-ups to work already committed
-- Use new commits for distinct, logical changes that should be tracked separately
+1. Run `git branch --show-current`
+2. If on `gitbutler/workspace` or any `gitbutler/*` branch:
+   - **STOP** - Do not proceed with git operations
+   - Warn the user that they're on a GitButler-managed branch
+   - Let the user handle all version control via the GitButler UI
+   - You may continue editing code files, but do not commit, create branches, or perform any git operations
 
 ### Notion (Documentation)
 
@@ -384,8 +340,6 @@ When adding or updating tests:
 - Any command that rewrites published history
 
 **Exceptions (no confirmation needed):**
-- `but absorb` - GitButler's absorb is designed for safe, automatic amending
-- `gitbutler_amend` - GitButler MCP tool handles this safely
 - Amending a commit that hasn't been pushed yet AND was just created in the current session
 - Small fixes (typos, formatting) to unpushed commits when the user has explicitly requested the original commit
 

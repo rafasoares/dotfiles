@@ -6,11 +6,10 @@ description: Wait for CI checks to pass, address automated feedback from Copilot
 ## What I do
 
 1. Poll CI check status until all checks complete
-2. If checks pass, assign GitHub Copilot as a reviewer
-3. Wait for Copilot's review feedback
-4. Address any feedback or issues that come up
-5. If an unrelated test fails, re-run it (do not attempt to fix it)
-6. Once all feedback is addressed, mark PR as ready and assign human reviewers
+2. If an unrelated test fails, re-run it (do not attempt to fix it)
+3. Once checks pass, ask if user wants to add Copilot as a reviewer
+4. If yes, wait for Copilot's review and address feedback
+5. Once all feedback is addressed, mark PR as ready and assign human reviewers
 
 ## Workflow
 
@@ -33,15 +32,14 @@ If checks are still pending, wait 60-120 seconds and poll again. Continue until 
   ```
 - **Lint/typecheck failure**: Fix the issues and push
 
-### Step 3: Assign Copilot reviewer (on success)
+### Step 3: Ask about Copilot review (on success)
 
-Once all checks pass:
+Once all checks pass, ask the user: "Would you like to add Copilot as a reviewer? (You'll need to add it manually via the GitHub UI)"
 
-```bash
-gh pr edit <PR_NUMBER> --add-reviewer @copilot-pull-request-reviewer
-```
+- If **no**: Skip to Step 5
+- If **yes**: Continue to Step 4
 
-### Step 4: Wait for Copilot review
+### Step 4: Wait for Copilot review and address feedback
 
 Poll for review status:
 
@@ -50,8 +48,6 @@ gh pr view <PR_NUMBER> --json reviews
 ```
 
 Wait until Copilot's review appears (usually 1-3 minutes).
-
-### Step 5: Address feedback
 
 Fetch Copilot's review comments:
 
@@ -65,9 +61,9 @@ For each piece of feedback:
 - If it's incorrect or not applicable, explain why in a reply
 - Push any changes and wait for checks again (repeat from Step 1)
 
-### Step 6: Mark PR ready and assign human reviewers
+### Step 5: Mark PR ready and assign human reviewers
 
-Once all Copilot feedback has been addressed and checks pass:
+Once all checks pass (and Copilot feedback is addressed, if applicable):
 
 ```bash
 gh pr ready <PR_NUMBER>
@@ -77,8 +73,8 @@ gh pr edit <PR_NUMBER> --add-reviewer @chartmogul/delta
 ## When to use me
 
 Use this skill when asked to:
-- "Wait for checks and get Copilot review"
-- "Monitor PR and address feedback"
+- "Wait for checks"
+- "Monitor PR"
 - "Get the PR reviewed"
 - "Finalize the PR"
 
@@ -86,5 +82,5 @@ Use this skill when asked to:
 
 - Always use `--failed` flag when re-running jobs to only re-run failed ones
 - Be patient with polling - CI can take several minutes
-- If Copilot reviewer is not available, inform the user
-- Only mark PR as ready after ALL automated feedback has been addressed
+- Do NOT attempt to assign Copilot via the API - it doesn't work
+- Only mark PR as ready after ALL checks have passed and feedback is addressed
