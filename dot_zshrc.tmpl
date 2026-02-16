@@ -6,6 +6,9 @@ if [ "$(command -v brew)" ]; then
   export HOMEBREW_NO_ENV_HINTS=1
 fi
 
+# Disable telemetry for all tools that respect this variable
+export DISABLE_TELEMETRY=1
+
 ZINIT_HOME={{ joinPath .chezmoi.homeDir ".local/share/zinit" }}
 source "${ZINIT_HOME}/zinit.zsh"
 
