@@ -92,7 +92,7 @@ zstyle ':completion:*' menu no
 # switch group using `<` and `>`
 zstyle ':fzf-tab:*' switch-group '<' '>'
 # Match lower case characters to upper case. Eg. `foo` will also match `Foo` and `FOO``
-zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}'
+zstyle ':completion:*' matcher-list 'm:{[:lower:]}={[:upper:]}' '+l:|=* r:|=*'
 
 # preview directory's content with eza when completing cd
 if [ "$(command -v eza)" ]; then
