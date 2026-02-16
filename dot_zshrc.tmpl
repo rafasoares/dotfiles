@@ -24,8 +24,10 @@ load_custom_aliases() {
 }
 
 # OMZ's git library and plugin must be loaded synchronously
-zinit snippet OMZL::git.zsh
-zinit snippet OMZP::git
+zinit for \
+  OMZL::git.zsh \
+  OMZL::async_prompt.zsh \
+  OMZP::git
 
 zinit wait lucid for \
   as"completion" atinit"zicompinit; zicdreplay" \
