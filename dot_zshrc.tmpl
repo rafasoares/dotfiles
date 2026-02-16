@@ -23,7 +23,9 @@ load_custom_aliases() {
   source $HOME/.config/zsh/aliases.zsh
 }
 
+# OMZ's git library and plugin must be loaded synchronously
 zinit snippet OMZL::git.zsh
+zinit snippet OMZP::git
 
 zinit wait lucid for \
   as"completion" atinit"zicompinit; zicdreplay" \
@@ -33,7 +35,6 @@ zinit wait lucid for \
   atload"load_custom_aliases" \
     OMZP::common-aliases \
   OMZP::docker-compose \
-  OMZP::git \
   OMZP::kubectl \
   OMZP::rails \
   OMZP::yarn \
