@@ -75,3 +75,6 @@ alias sklg="npx skills list -g"
 alias skrm="npx skills remove"
 alias skrmg="npx skills remove -g"
 alias skup="npx skills update"
+
+# pnpm aliases
+alias pab="pnpm approve-builds"
