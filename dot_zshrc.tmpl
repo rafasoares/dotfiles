@@ -30,8 +30,9 @@ zinit for \
   OMZP::git
 
 zinit wait lucid for \
+  atinit"zicompinit; zicdreplay" \
+    zdharma-continuum/fast-syntax-highlighting \
   OMZL::directories.zsh \
-  djui/alias-tips \
   OMZP::bundler \
   OMZP::colored-man-pages \
   atload"load_custom_aliases" \
@@ -46,9 +47,7 @@ zinit wait lucid for \
   ntnyq/omz-plugin-pnpm \
   as"completion" \
     OMZP::aws \
-    OMZP::docker/completions/_docker \
-  atinit"zicompinit; zicdreplay" \
-    zdharma-continuum/fast-syntax-highlighting \
+    OMZP::docker/completions/_docker
 
 if [ "$(command -v brew)" ]; then
   zinit wait lucid for \
