@@ -45,8 +45,9 @@ zinit wait lucid for \
   zsh-users/zsh-completions \
   zsh-users/zsh-autosuggestions \
   ntnyq/omz-plugin-pnpm \
-  as"completion" \
+  as"completion" atinit"zicompinit; zicdreplay" \
     OMZP::aws \
+  as"completion" \
     OMZP::docker/completions/_docker
 
 if [ "$(command -v brew)" ]; then
