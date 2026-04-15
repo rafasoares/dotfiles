@@ -56,9 +56,11 @@ if [ "$(command -v brew)" ]; then
 fi
 
 # Load completions
+autoload -Uz compinit
+compinit
+
 remove_conflicting_git_completions
 fpath=("$(brew --prefix)/share/zsh/site-functions" $fpath)
-zicompinit
 
 # Bind history search to up and down arrow keys
 bindkey '^[[A' history-search-backward
