@@ -51,8 +51,7 @@ zinit wait lucid for \
     OMZP::docker/completions/_docker
 
 if [ "$(command -v brew)" ]; then
-  zinit wait lucid for \
-    OMZP::brew
+  zinit snippet OMZP::brew
 fi
 
 # Load completions
@@ -132,8 +131,6 @@ if [ -d /home/linuxbrew/.linuxbrew ]; then
 fi
 {{ end }}
 
-source /Users/rafasoares/.config/op/plugins.sh
-
 # replay completions
 zicdreplay
 
@@ -160,3 +157,5 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+source /Users/rafasoares/.config/op/plugins.sh
