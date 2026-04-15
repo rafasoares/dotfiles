@@ -30,8 +30,7 @@ zinit for \
   OMZP::git
 
 zinit wait lucid for \
-  as"completion" atinit"zicompinit; zicdreplay" \
-    OMZP::aws \
+  djui/alias-tips \
   OMZP::bundler \
   OMZP::colored-man-pages \
   atload"load_custom_aliases" \
@@ -40,21 +39,20 @@ zinit wait lucid for \
   OMZP::kubectl \
   OMZP::rails \
   OMZP::yarn \
-  as"completion" \
-    OMZP::docker/completions/_docker \
-  atinit"zicompinit; zicdreplay" \
-    zdharma-continuum/fast-syntax-highlighting \
   Aloxaf/fzf-tab \
   zsh-users/zsh-completions \
   zsh-users/zsh-autosuggestions \
-  ntnyq/omz-plugin-pnpm
+  ntnyq/omz-plugin-pnpm \
+  as"completion" \
+    OMZP::aws \
+    OMZP::docker/completions/_docker \
+  atinit"zicompinit; zicdreplay" \
+    zdharma-continuum/fast-syntax-highlighting \
 
 if [ "$(command -v brew)" ]; then
-  zinit snippet OMZP::brew
+  zinit wait lucid for \
+    OMZP::brew
 fi
-
-# Load custom zsh aliases
-# source $HOME/.config/zsh/aliases.zsh
 
 # Load completions
 remove_conflicting_git_completions
@@ -131,8 +129,10 @@ if [ -d /home/linuxbrew/.linuxbrew ]; then
 fi
 {{ end }}
 
+source /Users/rafasoares/.config/op/plugins.sh
+
 # replay completions
-zicdreplay
+zi cdreplay
 
 # qlty completions
 [ -s "/opt/homebrew/share/zsh/site-functions/_qlty" ] && source "/opt/homebrew/share/zsh/site-functions/_qlty"
@@ -157,6 +157,3 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-
-
-source /Users/rafasoares/.config/op/plugins.sh
