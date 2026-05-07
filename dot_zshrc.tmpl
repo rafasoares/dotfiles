@@ -31,7 +31,8 @@ zinit for \
 
 zinit wait lucid light-mode for \
   zdharma-continuum/zui \
-  zdharma-continuum/zinit-crasis
+  wait'[[ -n ${ZLAST_COMMANDS[(r)cras*]} ]]' zdharma-continuum/zinit-crasis \
+  wait'[[ -n ${ZLAST_COMMANDS[(r)zbrowse*]} ]]' zdharma-continuum/zbrowse
 
 zinit wait lucid for \
   atinit"zicompinit; zicdreplay" \
@@ -118,6 +119,7 @@ zstyle ':completion:*:*:docker-*:*' option-stacking yes
 [ "$(command -v fzf)" ] && source <(fzf --zsh)
 [ "$(command -v fnm)" ] && eval "$(fnm env --use-on-cd)"
 [ "$(command -v zoxide)" ] && eval "$(zoxide init --cmd z zsh)"
+[ "$(command -v tab)" ] && source <(tab pnpm zsh)
 
 # Set the editor
 if [ "$(command -v code)" ]; then
