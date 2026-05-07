@@ -16,7 +16,7 @@ packages:
       - libpq
       - neovim
       - shellcheck
-      - tldr
+      - tlrc
       - wget
       - whalebrew
       - zoxide
