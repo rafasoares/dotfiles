@@ -4,7 +4,7 @@
 	helper = !gh auth git-credential
 	{{- end -}}
 	{{- if eq .chezmoi.os "windows" -}}
-	helper = !{{ lookPath "gh" | quote }} auth git-credential
+	helper = !{{ lookPath "gh" | replace `\` `/` | quote }} auth git-credential
 	{{- end }}
 {{- end -}}
 
@@ -23,7 +23,7 @@
 {{ if eq .chezmoi.os "darwin" }}
 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 {{ else if eq .chezmoi.os "windows" }}
-	program = {{ lookPath "op-ssh-sign" | quote }}
+	program = {{ lookPath "op-ssh-sign" | replace `\` `/` | quote }}
 {{ end }}
 [commit]
 	gpgsign = true
