@@ -1,9 +1,12 @@
-{{ define "gh-helper" -}}
+{{- define "gh-helper" -}}
 	helper =
-	{{ if eq .chezmoi.os "darwin" "linux" }}
+	{{ if eq .chezmoi.os "darwin" "linux" -}}
 	helper = !gh auth git-credential
-	{{ end }}
-{{- end }}
+	{{- end -}}
+	{{- if eq .chezmoi.os "windows" -}}
+	helper = !{{ lookPath "gh" | quote }} auth git-credential
+	{{- end }}
+{{- end -}}
 
 [credential "https://github.com"]
 	{{ template "gh-helper" . }}
@@ -19,6 +22,8 @@
 [gpg "ssh"]
 {{ if eq .chezmoi.os "darwin" }}
 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+{{ else if eq .chezmoi.os "windows" }}
+	program = {{ lookPath "ssh" | quote }}
 {{ end }}
 [commit]
 	gpgsign = true

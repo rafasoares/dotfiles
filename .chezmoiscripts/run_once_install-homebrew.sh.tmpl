@@ -24,6 +24,6 @@ echo "eval \"\$($(brew --prefix)/bin/brew shellenv)\"" >> ~/.bashrc
 
 {{- $codespaces:= env "CODESPACES" | not | not -}}
 
-{{ if not $codespaces -}}
+{{ if or (not $codespaces) (ne .chezmoi.os "windows") -}}
 {{ template "install-homebrew" . }}
 {{- end }}
