@@ -37,7 +37,4 @@ packages:
     brew:
       - mas
     cask:
-      - arc
-      - firefox@developer-edition
-      - google-chrome
       - orbstack
