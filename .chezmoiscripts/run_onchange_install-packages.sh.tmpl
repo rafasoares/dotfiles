@@ -2,10 +2,12 @@
 #!{{ lookPath "bash" }}
 
 {{ if eq .chezmoi.os "linux" -}}
-  {{- if eq .chezmoi.osRelease.idLike "debian" -}}
+  {{- if and (hasKey .chezmoi.osRelease "idLike") (eq .chezmoi.osRelease.idLike "debian") -}}
     {{- $cmd := .interactive | ternary "apt" "apt-get" -}}
 sudo {{ $cmd }} update -y
 sudo {{ $cmd }} install -y {{ range .packages.linux.apt }}{{ . | quote }} {{ end }}
+  {{- else if and (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "arch") -}}
+sudo pacman -Syu --noconfirm --needed {{ range .packages.linux.pacman }}{{ . | quote }} {{ end }}
   {{- end }}
 {{- end }}
 
