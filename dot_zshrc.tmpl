@@ -9,6 +9,13 @@ fi
 # Disable telemetry for all tools that respect this variable
 export DISABLE_TELEMETRY=1
 
+{{ if eq .chezmoi.os "linux" }}
+# Configure Homebrew on Linux, if available
+if [ -d /home/linuxbrew/.linuxbrew ]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi
+{{ end }}
+
 ZINIT_HOME={{ joinPath .chezmoi.homeDir ".local/share/zinit" }}
 source "${ZINIT_HOME}/zinit.zsh"
 
@@ -130,12 +137,6 @@ else
   export EDITOR="vim"
 fi
 
-{{ if eq .chezmoi.os "linux" }}
-# Configure Homebrew on Linux, if available
-if [ -d /home/linuxbrew/.linuxbrew ]; then
-  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-fi
-{{ end }}
 
 # replay completions
 zicdreplay
@@ -172,4 +173,8 @@ export PATH="$PATH:$HOME/.local/bin"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
-source "$HOME/.config/op/plugins.sh"
+[ -f "$HOME/.config/op/plugins.sh" ] && source "$HOME/.config/op/plugins.sh"
+
+{{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+[ -f "$HOME/.agent-bridge.sh" ] && source "$HOME/.agent-bridge.sh"
+{{   end }}
