@@ -31,7 +31,8 @@ packages:
       - gcc
     apt:
       - build-essential
-
+    pacman:
+      - base-devel
   darwin:
     brew:
       - mas
