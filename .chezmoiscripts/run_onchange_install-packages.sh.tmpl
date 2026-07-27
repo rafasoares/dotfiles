@@ -19,7 +19,7 @@ export HOMEBREW_NO_ENV_HINTS=1
 
 brew update
 
-brew bundle --no-lock --file=/dev/stdin <<EOF
+brew bundle --file=/dev/stdin <<EOF
 {{ template "homebrew-packages" set (deepCopy .) "type" "tap" }}
 {{ template "homebrew-packages" set (deepCopy .) "type" "brew" }}
 
