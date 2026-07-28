@@ -175,6 +175,6 @@ export PATH="$PATH:$HOME/.rvm/bin"
 
 [ -f "$HOME/.config/op/plugins.sh" ] && source "$HOME/.config/op/plugins.sh"
 
-{{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{ if and (hasKey .chezmoi.kernel "osrelease") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 [ -f "$HOME/.agent-bridge.sh" ] && source "$HOME/.agent-bridge.sh"
-{{   end }}
+{{ end }}
