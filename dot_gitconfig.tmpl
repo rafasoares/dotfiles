@@ -24,14 +24,11 @@
 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 {{ else if eq .chezmoi.os "windows" }}
 	program = {{ lookPath "op-ssh-sign" | replace `\` `/` | quote }}
+{{ else if eq .chezmoi.os "linux" }}
+	program = "/opt/1Password/op-ssh-sign"
 {{ end }}
 [commit]
 	gpgsign = true
-[gitbutler]
-	signCommits = true
-	aiOpenAIKeyOption = bringYourOwn
-	aiOpenAIModelName = gpt-4.1-mini
-	aiModelProvider = openai
 [init]
 	defaultBranch = main
 [core]
