@@ -18,7 +18,6 @@ packages:
       - shellcheck
       - tlrc
       - wget
-      - whalebrew
       - zoxide
       - oh-my-posh
     cask:
