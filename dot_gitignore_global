@@ -8,6 +8,8 @@
 ## Diff files
 *.patch
 *.diff
+# Intentional patches (for PNPM, Yarn, etc.)
+!patches/*.patch
 
 ## VSCode
 .vscode/*
