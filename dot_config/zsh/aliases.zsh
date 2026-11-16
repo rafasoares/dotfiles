@@ -78,3 +78,4 @@ alias skup="pnx skills update"
 
 # pnpm aliases
 alias pab="pnpm approve-builds"
+alias pout="pnpm outdated"
